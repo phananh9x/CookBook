@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Cook Book</string>
+    <string name="version">Phiên bản 1.0</string>
+    <string name="decription">Nội dung được tìm kiếm từ nhiều ngồn khác nhau trên Internet,chúng tối không chịu trách nhiệm về tính chính xác của nội dung.</string>
+    <string name="lien_he">suportabc@gmail.com</string>
+    <string name="rights_reserved">All rights Reserved.</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="nav_item_attachment">Danh Mục</string>
+    <string name="List_Favorites">Danh Sách Món Ăn Yêu Thích</string>
+    <string name="About">Về chúng tôi</string>
+    <string name="check_update">Kiểm tra bản cập nhật</string>
+    <string name="More_App">Ứng dụng hay</string>
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="recyclerview_fab_example">RecyclerView FAB example</string>
+    <string name="floating_action_menu">Floating Action Menu</string>
+    <string name="facebook_app_id">1579723089010763</string>
+
+    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
+    <string name="server_registering">Đang thử (lần %1$d/%2$d) để đăng ký thiết bị trên GCM Server.</string>
+    <string name="server_registered">From Demo Server: successfully added device!</string>
+    <string name="gcm_registered">From GCM: device successfully registered!</string>
+    <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
+    <string name="gcm_message">From GCM: you got message!</string>
+    <string name="gcm_error">From GCM: error (%1$s).</string>
+    <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
+    <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
+
+</resources>

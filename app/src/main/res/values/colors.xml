@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_material_light">#03a9f4</color>
+    <color name="light_green1">#80ccff90</color>
+    <color name="light_green2">#a7d0be</color>
+    <color name="light_green_actionbar">#56aa59</color>
+    <color name="fab">#ff4081</color>
+    <color name="foreground_material_light">#ffffff</color>
+    <color name="primary_text_default_material_light">#000000</color>
+    <color name="background_material_dark">#ffffff</color>
+    <color name="foreground_material_dark">#000000</color>
+    <color name="black">#ffffff</color>
+    <color name="colorBackground">#000000</color>
+    <color name="accent_material_light">#ff4081</color>
+    <color name="accent_material_dark">#ff4081</color>
+</resources>
