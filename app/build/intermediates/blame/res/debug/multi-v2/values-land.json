@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Workspace\\Android\\CookBook\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
+            "outputFile": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\debug\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\design-23.1.0.aar\\ebf3d136b4ad851d1ff338b68d3e870a\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\design-23.1.0.aar\\e00534809eabf65c8ba8c3d61ccf0e06\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "4",
@@ -23,7 +23,48 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f14f9adcc9882debb20040f33a934494\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "4,7,10,13,16,17",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "287,582,896,1199,1505,1576",
+                        "endColumns": "61,71,69,63,70,67",
+                        "endOffsets": "344,649,961,1258,1571,1639"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,117,189,259,323,394",
+                        "endColumns": "61,71,69,63,70,67",
+                        "endOffsets": "112,184,254,318,389,457"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\design-23.1.0.aar\\e00534809eabf65c8ba8c3d61ccf0e06\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "282",
+                        "endLines": "7",
+                        "endColumns": "12",
+                        "endOffsets": "459"
+                    },
+                    "to": {
+                        "startLines": "8",
+                        "startColumns": "4",
+                        "startOffsets": "462",
+                        "endLines": "11",
+                        "endColumns": "12",
+                        "endOffsets": "639"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "4,7,10,13,16,17",
                         "startColumns": "4,4,4,4,4,4",

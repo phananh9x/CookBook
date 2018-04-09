@@ -1,0 +1,82 @@
+[
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_out.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\design-23.1.0.aar\\e00534809eabf65c8ba8c3d61ccf0e06\\res\\anim\\design_fab_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\design-23.1.0.aar\\e00534809eabf65c8ba8c3d61ccf0e06\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fab_slide_out_to_left.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\fab-1.6.2.aar\\cd2c4cb587fb0ea8e57136c08dabc61b\\res\\anim\\fab_slide_out_to_left.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fab_slide_out_to_right.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\fab-1.6.2.aar\\cd2c4cb587fb0ea8e57136c08dabc61b\\res\\anim\\fab_slide_out_to_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fab_scale_down.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\fab-1.6.2.aar\\cd2c4cb587fb0ea8e57136c08dabc61b\\res\\anim\\fab_scale_down.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fab_scale_up.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\fab-1.6.2.aar\\cd2c4cb587fb0ea8e57136c08dabc61b\\res\\anim\\fab_scale_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_fab_in.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\design-23.1.0.aar\\e00534809eabf65c8ba8c3d61ccf0e06\\res\\anim\\design_fab_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fab_slide_in_from_left.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\fab-1.6.2.aar\\cd2c4cb587fb0ea8e57136c08dabc61b\\res\\anim\\fab_slide_in_from_left.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\fab_slide_in_from_right.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\fab-1.6.2.aar\\cd2c4cb587fb0ea8e57136c08dabc61b\\res\\anim\\fab_slide_in_from_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\design-23.1.0.aar\\e00534809eabf65c8ba8c3d61ccf0e06\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\LeNghi\\Desktop\\android\\CookBook\\app\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\LeNghi\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.1.0.aar\\f4e02c8860f44e8bfdad1867a721bfb1\\res\\anim\\abc_popup_exit.xml"
+    }
+]
