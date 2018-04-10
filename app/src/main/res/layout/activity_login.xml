@@ -32,7 +32,7 @@
         android:layout_marginStart="32dp"
         android:background="@drawable/duongvien_goctron"
         android:ems="10"
-        android:text="phananh123qq@gmail.com"
+        android:text="phananh123qqq@gmail.com"
         android:hint="@string/username"
         android:inputType="textPersonName"
         android:padding="10dp" />

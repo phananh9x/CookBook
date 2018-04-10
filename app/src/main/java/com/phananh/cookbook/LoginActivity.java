@@ -2,6 +2,7 @@ package com.phananh.cookbook;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,8 +65,13 @@ public class LoginActivity extends AppCompatActivity {
         mAPIService.login(new LogIn(username, pass)).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response != null){
+//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                finish();
+                if (response.body() != null){
                     Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor editor = getSharedPreferences("", MODE_PRIVATE).edit();
+                    editor.putString("token", response.body().getToken());
+                    editor.apply();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }
