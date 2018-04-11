@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import com.google.gson.Gson;
-import com.phananh.model.MonAn;
+import com.phananh.model.Food;
+import com.phananh.model.Food;
 
 /**
  * Created by Phan Anh on 3/26/2016.
@@ -22,7 +23,7 @@ public class SharedPreference {
     }
 
 
-    public void saveFavorites(Context context, List<MonAn> favorites) {
+    public void saveFavorites(Context context, List<Food> favorites) {
         SharedPreferences settings;
         SharedPreferences.Editor editor;
 
@@ -38,21 +39,21 @@ public class SharedPreference {
         editor.commit();
     }
 
-    public void addFavorite(Context context, MonAn product) {
-        List<MonAn> favorites = getFavorites(context);
+    public void addFavorite(Context context, Food product) {
+        List<Food> favorites = getFavorites(context);
         if (favorites == null)
-            favorites = new ArrayList<MonAn>();
+            favorites = new ArrayList<Food>();
         favorites.add(product);
         saveFavorites(context, favorites);
     }
 
-    public void removeFavorite(Context context, MonAn product) {
-        ArrayList<MonAn> favorites = getFavorites(context);
+    public void removeFavorite(Context context, Food product) {
+        List<Food> favorites = getFavorites(context);
 
         if (favorites != null) {
-            for(MonAn food:favorites)
+            for(Food food:favorites)
             {
-                if(food.getTenMonAn().equals(product.getTenMonAn()))
+                if(food.name.equals(product.name))
                 {
                     favorites.remove(food);
                     saveFavorites(context, favorites);
@@ -62,12 +63,12 @@ public class SharedPreference {
 
         }
     }
-    public boolean checkFavoriteItem(Context context,MonAn monAn) {
+    public boolean checkFavoriteItem(Context context,Food Food) {
         boolean check = false;
-        List<MonAn> favorites = getFavorites(context);
+        List<Food> favorites = getFavorites(context);
         if (favorites != null) {
-            for (MonAn food : favorites) {
-                if (food.getTenMonAn().equals(monAn.getTenMonAn())) {
+            for (Food food : favorites) {
+                if (food.name.equals(Food.name)) {
                     check = true;
                     break;
                 }
@@ -76,9 +77,9 @@ public class SharedPreference {
         return check;
     }
 
-    public ArrayList<MonAn> getFavorites(Context context) {
+    public List<Food> getFavorites(Context context) {
         SharedPreferences settings;
-        List<MonAn> favorites;
+        List<Food> favorites;
 
         settings = context.getSharedPreferences(PREFS_NAME,
                 Context.MODE_PRIVATE);
@@ -86,14 +87,14 @@ public class SharedPreference {
         if (settings.contains(FAVORITES)) {
             String jsonFavorites = settings.getString(FAVORITES, null);
             Gson gson = new Gson();
-            MonAn[] favoriteItems = gson.fromJson(jsonFavorites,
-                    MonAn[].class);
+            Food[] favoriteItems = gson.fromJson(jsonFavorites,
+                    Food[].class);
 
             favorites = Arrays.asList(favoriteItems);
-            favorites = new ArrayList<MonAn>(favorites);
+            favorites = new ArrayList<>(favorites);
         } else
             return null;
 
-        return (ArrayList<MonAn>) favorites;
+        return  favorites;
     }
 }

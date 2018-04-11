@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -24,11 +25,18 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.phananh.adapter.CustomBaseAdapter;
+import com.phananh.api.APIServices;
+import com.phananh.api.ApiUtils;
+import com.phananh.model.Category;
 import com.phananh.model.DanhMuc;
 import com.phananh.util.SharedPreference;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
     String regId;
 
-    ArrayList<DanhMuc> dsDanhMuc;
+    List<Category> dsDanhMuc;
     Toolbar toolbar;
+
+    private APIServices mAPIService;
 
     AsyncTask<Void, Void, Void> gcmRegisterTask;
 
@@ -52,9 +62,43 @@ public class MainActivity extends AppCompatActivity {
         addControls();
         addEvents();
 
-        new LoadAsyctask().execute();
+//        new LoadAsyctask().execute();
+        loadCategory();
 
+    }
 
+    private void loadCategory() {
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.show();
+        SharedPreferences preferences = this.getSharedPreferences("", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        mAPIService = ApiUtils.getAPIService();
+        mAPIService.getCategories(token).enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                if (response.body() != null){
+                    Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                    dsDanhMuc=response.body();
+                    getCategorySuccess(response.body());
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    // trả về listCategory
+    private void getCategorySuccess(List<Category> response) {
+        CustomBaseAdapter adapter = new CustomBaseAdapter(MainActivity.this, R.layout.custom_layout_gridview,response);
+        adapter.notifyDataSetChanged();
+        gridView.setAdapter(adapter);
+        progressDialog.dismiss();
     }
     //Chỉ cần đăng ký 1 lần, các lần khác không cần--> tự động nhận biết rồi
 
@@ -131,19 +175,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<DanhMuc> getData() {
-        int[] danhSachHinhAnh = {R.drawable.thitheo, R.drawable.thitvit,
-                R.drawable.raucu, R.drawable.thitbo, R.drawable.dauphu,
-                R.drawable.thitga, R.drawable.haisankhac, R.drawable.trung};
-        String[] kytu = {"Thịt Heo", "Thịt Vịt", "Rau Củ", "Thịt Bò", "Đậu phụ", "Thịt Gà", "Hải sản", "Trứng"};
-        String[] id = {"Heo", "Vit", "Rau", "Bo", "Dau", "Ga", "HS", "Trung"};
-        dsDanhMuc = new ArrayList<>();
-        for (int i = 0; i < danhSachHinhAnh.length; i++) {
-            DanhMuc danhMuc = new DanhMuc(id[i], danhSachHinhAnh[i], kytu[i]);
-            dsDanhMuc.add(danhMuc);
-        }
-        return dsDanhMuc;
-    }
+//    private ArrayList<DanhMuc> getData() {
+//        int[] danhSachHinhAnh = {R.drawable.thitheo, R.drawable.thitvit,
+//                R.drawable.raucu, R.drawable.thitbo, R.drawable.dauphu,
+//                R.drawable.thitga, R.drawable.haisankhac, R.drawable.trung};
+//        String[] kytu = {"Thịt Heo", "Thịt Vịt", "Rau Củ", "Thịt Bò", "Đậu phụ", "Thịt Gà", "Hải sản", "Trứng"};
+//        String[] id = {"Heo", "Vit", "Rau", "Bo", "Dau", "Ga", "HS", "Trung"};
+//        dsDanhMuc = new ArrayList<>();
+//        for (int i = 0; i < danhSachHinhAnh.length; i++) {
+//            DanhMuc danhMuc = new DanhMuc(id[i], danhSachHinhAnh[i], kytu[i]);
+//            dsDanhMuc.add(danhMuc);
+//        }
+//        return dsDanhMuc;
+//    }
 
 
 
@@ -175,11 +219,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+           /* super.onPostExecute(aVoid);
             CustomBaseAdapter adapter = new CustomBaseAdapter(MainActivity.this, R.layout.custom_layout_gridview, getData());
             adapter.notifyDataSetChanged();
             gridView.setAdapter(adapter);
-            progressDialog.dismiss();
+            progressDialog.dismiss();*/
         }
 
         @Override

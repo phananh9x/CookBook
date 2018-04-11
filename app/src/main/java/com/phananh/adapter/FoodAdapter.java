@@ -5,11 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.phananh.model.Category;
+import com.phananh.model.Food;
 import com.phananh.model.MonAn;
 import com.phananh.cookbook.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Minamino on 1/15/2016.
@@ -18,10 +21,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodHolderView> {
 
 
     private Activity activity;
-    private ArrayList<MonAn> dsMonAn;
+    private List<Food> dsMonAn;
 
 
-    public FoodAdapter(Activity activity, ArrayList<MonAn> dsMonAn) {
+    public FoodAdapter(Activity activity, List<Food> dsMonAn) {
         this.activity = activity;
         this.dsMonAn = dsMonAn;
     }
@@ -36,19 +39,19 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodHolderView> {
 
     @Override
     public void onBindViewHolder(FoodHolderView holder, int position) {
-        MonAn monAn=dsMonAn.get(position);
+        Food monAn=dsMonAn.get(position);
         if(position%2==0)
         {
             holder.linearLayout.setBackgroundColor(activity.getResources().getColor(R.color.light_green1));
-            Picasso.with(activity).load(monAn.getUrl().toString()).placeholder(R.drawable.none).error(R.drawable.none).into(holder.imgHinhMonAn);
-            holder.txtMoTa.setText(monAn.getMoTa().toString());
-            holder.txtTenMonAn.setText(monAn.getTenMonAn().toString());
+            Picasso.with(activity).load(monAn.image).placeholder(R.drawable.none).error(R.drawable.none).into(holder.imgHinhMonAn);
+            holder.txtMoTa.setText(monAn.decriptions);
+            holder.txtTenMonAn.setText(monAn.name);
         }
         else {
             holder.linearLayout.setBackgroundColor(activity.getResources().getColor(R.color.light_green2));
-            Picasso.with(activity).load(monAn.getUrl().toString()).placeholder(R.drawable.none).error(R.drawable.none).into(holder.imgHinhMonAn);
-            holder.txtMoTa.setText(monAn.getMoTa().toString());
-            holder.txtTenMonAn.setText(monAn.getTenMonAn().toString());
+            Picasso.with(activity).load(monAn.image).placeholder(R.drawable.none).error(R.drawable.none).into(holder.imgHinhMonAn);
+            holder.txtMoTa.setText(monAn.decriptions);
+            holder.txtTenMonAn.setText(monAn.name);
         }
 
 

@@ -7,10 +7,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.phananh.model.Category;
 import com.phananh.model.DanhMuc;
 import com.phananh.cookbook.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Minamino on 1/15/2016.
@@ -18,22 +21,22 @@ import java.util.ArrayList;
 public class CustomBaseAdapter extends BaseAdapter {
     Context context;
     int layout;
-    ArrayList<DanhMuc> danhsachanh;
+    List<Category> danhsachanh;
 
-    public CustomBaseAdapter(Context context,int layout, ArrayList<DanhMuc> danhsachanh){
+    public CustomBaseAdapter(Context context, int layout, List<Category> danhsachanh) {
         this.context = context;
         this.layout = layout;
         this.danhsachanh = danhsachanh;
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         ImageView hinhanh;
         TextView txtText;
     }
 
     @Override
     public int getCount() {
-        return danhsachanh.size();
+        return danhsachanh == null ? 0 : danhsachanh.size();
     }
 
     @Override
@@ -49,19 +52,20 @@ public class CustomBaseAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View viewrow = convertView;
-        if(viewrow == null){
-            viewrow=View.inflate(context,R.layout.custom_layout_gridview,null);
+        if (viewrow == null) {
+            viewrow = View.inflate(context, R.layout.custom_layout_gridview, null);
 
             ViewHolder holder = new ViewHolder();
             holder.hinhanh = (ImageView) viewrow.findViewById(R.id.imHinhAnh);
-            holder.txtText= (TextView) viewrow.findViewById(R.id.txtText);
+            holder.txtText = (TextView) viewrow.findViewById(R.id.txtText);
 
             viewrow.setTag(holder);
         }
 
         ViewHolder holder = (ViewHolder) viewrow.getTag();
-        holder.hinhanh.setImageResource(danhsachanh.get(position).getHinh());
-        holder.txtText.setText(danhsachanh.get(position).getTen());
+//        holder.hinhanh.setImageResource(R.mipmap.ic_launcher);
+        Glide.with(context).load(danhsachanh.get(position).getImage()).into(holder.hinhanh);
+        holder.txtText.setText(danhsachanh.get(position).getName());
 
         return viewrow;
     }
