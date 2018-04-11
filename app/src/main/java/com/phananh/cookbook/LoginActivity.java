@@ -34,7 +34,6 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     EditText userName, passWord;
-    String user, pass;
     private ProgressDialog progressDialog;
 
     private APIServices mAPIService;
@@ -53,6 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.tv_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog = new ProgressDialog(LoginActivity.this);
+                //  progressDialog.setTitle("Vui Lòng Chờ !");
+                progressDialog.setMessage("Loading...");
+                progressDialog.setIndeterminate(false);
+                progressDialog.show();
                 login(userName.getText().toString(), passWord.getText().toString());
             }
         });
@@ -67,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
+                    progressDialog.dismiss();
                 }
             }
 
@@ -81,63 +86,63 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private class LoginAsyctask extends AsyncTask<String, LogIn, String> {
-        StringBuffer dulieu;
+//    private class LoginAsyctask extends AsyncTask<String, LogIn, String> {
+//        StringBuffer dulieu;
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            progressDialog = new ProgressDialog(LoginActivity.this);
+//            //  progressDialog.setTitle("Vui Lòng Chờ !");
+//            progressDialog.setMessage("Loading...");
+//            progressDialog.setIndeterminate(false);
+//            progressDialog.show();
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            super.onPostExecute(s);
+//
+//            progressDialog.dismiss();
+//        }
+//
+//        @Override
+//        protected void onProgressUpdate(LogIn... values) {
+//            super.onProgressUpdate(values);
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//
+//            try {
+//                URL url = new URL(params[0]);
+//                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+//                httpURLConnection.connect();
+//                InputStream inputStream = httpURLConnection.getInputStream();
+//                InputStreamReader reader = new InputStreamReader(inputStream);
+//                BufferedReader bufferedReader = new BufferedReader(reader);
+//
+//                String dong = "";
+//
+//                dulieu = new StringBuffer();
+//
+//                while ((dong = bufferedReader.readLine()) != null) {
+//                    dulieu.append(dong);
+//                }
+//
+//                bufferedReader.close();
+//                reader.close();
+//                inputStream.close();
+//                httpURLConnection.disconnect();
+//
+//                Log.d("Dữ liệu", "doInBackground: " + dulieu.toString());
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            return dulieu.toString();
+//        }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(LoginActivity.this);
-            //  progressDialog.setTitle("Vui Lòng Chờ !");
-            progressDialog.setMessage("Loading...");
-            progressDialog.setIndeterminate(false);
-            progressDialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            progressDialog.dismiss();
-        }
-
-        @Override
-        protected void onProgressUpdate(LogIn... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            try {
-                URL url = new URL(params[0]);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.connect();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                InputStreamReader reader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(reader);
-
-                String dong = "";
-
-                dulieu = new StringBuffer();
-
-                while ((dong = bufferedReader.readLine()) != null) {
-                    dulieu.append(dong);
-                }
-
-                bufferedReader.close();
-                reader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-
-                Log.d("Dữ liệu", "doInBackground: " + dulieu.toString());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return dulieu.toString();
-        }
-
-    }
+//    }
 }
