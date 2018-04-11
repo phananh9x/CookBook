@@ -3,13 +3,14 @@ package com.phananh.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by thanh on 10/04/2018.
  */
 
-public class Category {
+public class Category implements Serializable{
     @SerializedName("created")
     @Expose
     private Date created;

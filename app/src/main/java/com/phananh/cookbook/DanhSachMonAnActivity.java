@@ -7,44 +7,39 @@ import android.content.Intent;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.phananh.adapter.FoodAdapter;
-import com.phananh.model.DanhMuc;
-import com.phananh.model.MonAn;
-import com.phananh.util.ParserDulieuJSON;
+import com.phananh.api.ApiUtils;
+import com.phananh.model.Category;
+import com.phananh.model.Food;
 import com.phananh.util.RecyclerItemClickListener;
-import com.phananh.config.*;
+import com.phananh.util.Storage;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DanhSachMonAnActivity extends AppCompatActivity {
 
-    ArrayList<MonAn> dsMonAn;
+    List<Food> dsMonAn;
 
     FoodAdapter foodAdapter;
     RecyclerView myRecyclerView;
     ProgressDialog progressDialog;
-    DanhMuc danhMuc=null;
+    Category danhMuc=null;
 
 
 
@@ -65,18 +60,52 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
         addControls();
         addEvents();
         Intent intent = getIntent();
-        danhMuc = (DanhMuc) intent.getSerializableExtra("DanhMuc");
+        danhMuc = (Category) intent.getSerializableExtra("DanhMuc");
 
-        if(checkInternet())
+        loadFood(danhMuc.getId());
+
+        /*if(checkInternet())
         {
             new LoadAsyctask().execute(configuration.SERVER_URL);
         }
         else {
         Toast.makeText(DanhSachMonAnActivity.this,"Vui lòng kiểm tra kết nối Internet của bạn!!",Toast.LENGTH_SHORT).show();}
-
+*/
 
 
     }
+
+    private void loadFood(String idDanhMuc) {
+        progressDialog= new ProgressDialog(DanhSachMonAnActivity.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.show();
+
+        ApiUtils.getAPIService().getFood(Storage.getToken(this), idDanhMuc).enqueue(new Callback<List<Food>>() {
+            @Override
+            public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
+                dsMonAn = response.body();
+                loadFoodSuccess();
+                Toast.makeText(DanhSachMonAnActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Food>> call, Throwable t) {
+                Toast.makeText(DanhSachMonAnActivity.this, "Get food failed!", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+            }
+        });
+    }
+
+    private void loadFoodSuccess() {
+        foodAdapter=new FoodAdapter(DanhSachMonAnActivity.this,dsMonAn);
+        myRecyclerView.setAdapter(foodAdapter);
+        foodAdapter.notifyDataSetChanged();
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
@@ -124,11 +153,10 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
 
         dsMonAn=new ArrayList<>();
 
-
     }
 
 
-
+/*
     private class LoadAsyctask extends AsyncTask<String,Void,String>
     {
         StringBuffer dulieu;
@@ -192,5 +220,5 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
             return dulieu.toString();
         }
 
-    }
+    }*/
 }

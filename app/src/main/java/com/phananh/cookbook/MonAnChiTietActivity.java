@@ -28,6 +28,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.phananh.model.Food;
 import com.phananh.model.MonAn;
 import com.phananh.util.SharedPreference;
 import com.squareup.picasso.Picasso;
@@ -47,7 +48,7 @@ public class MonAnChiTietActivity extends AppCompatActivity {
     FloatingActionButton fab5;
     FloatingActionMenu fab;
     FloatingActionMenu fab3;
-    MonAn monAn;
+    Food monAn;
     Context context;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
@@ -60,7 +61,7 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mon_an_chi_tiet);
         Intent intent=getIntent();
-        monAn= (MonAn) intent.getSerializableExtra("MONAN");
+        monAn= (Food) intent.getSerializableExtra("MONAN");
         FacebookSdk.sdkInitialize(getApplicationContext());
         simpleFacebook = SimpleFacebook.getInstance(this);
 
@@ -243,10 +244,10 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         });
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
-                    .setContentTitle(monAn.getTenMonAn().toString())
-                    .setContentDescription(monAn.getMoTa() + "")
+                    .setContentTitle(monAn.name)
+                    .setContentDescription(monAn.name + "")
 //                    .setContentUrl(Uri.parse(monAn.getUrl().toString()))
-                    .setImageUrl(Uri.parse(monAn.getUrl().toString()))
+                    .setImageUrl(Uri.parse(monAn.image))
                     .build();
                     // ShareDialog.show(MonAnChiTietActivity.this,shareLinkContent);
                 //    shareDialog.show(shareLinkContent);
@@ -279,16 +280,16 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         fab3= (FloatingActionMenu) findViewById(R.id.fab3);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(monAn.getTenMonAn());
+        collapsingToolbarLayout.setTitle(monAn.name);
         collapsingToolbarLayout.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
-        tenMonAn.setText(monAn.getTenMonAn());
-        moTa.setText(monAn.getMoTa());
+        tenMonAn.setText(monAn.name);
+        moTa.setText(monAn.decriptions);
         titlenguyenLieu.setText("Nguyên Liệu");
-        nguyenLieu.setText(monAn.getNgyenLieu());
+        nguyenLieu.setText(monAn.material);
         titlehuongDan.setText("Hướng Dẫn");
-        huongDan.setText(monAn.getCachLam());
-        Picasso.with(this).load(monAn.getUrl()).placeholder(R.drawable.none).error(R.drawable.none).into(imgHinh);
+        huongDan.setText(monAn.youtube);
+        Picasso.with(this).load(monAn.image).placeholder(R.drawable.none).error(R.drawable.none).into(imgHinh);
 
 
 

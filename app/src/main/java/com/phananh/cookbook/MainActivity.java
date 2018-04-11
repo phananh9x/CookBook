@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     String regId;
 
-    ArrayList<DanhMuc> dsDanhMuc;
+    List<Category> dsDanhMuc;
     Toolbar toolbar;
 
     private APIServices mAPIService;
@@ -78,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
         mAPIService.getCategories(token).enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                if (response != null){
+                if (response.body() != null){
                     Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                    dsDanhMuc=response.body();
                     getCategorySuccess(response.body());
                 }
                 progressDialog.dismiss();

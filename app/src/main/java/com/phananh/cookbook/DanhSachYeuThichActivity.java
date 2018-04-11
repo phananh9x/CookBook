@@ -14,8 +14,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.phananh.adapter.FoodAdapter;
+import com.phananh.model.Food;
 import com.phananh.model.MonAn;
 import com.phananh.util.RecyclerItemClickListener;
 import com.phananh.util.SharedPreference;
@@ -24,7 +26,7 @@ public class DanhSachYeuThichActivity extends AppCompatActivity {
     RecyclerView myRecyclerView;
     SharedPreference sharedPreference;
 
-    ArrayList<MonAn> dsMonAnYeuThich;
+    List<Food> dsMonAnYeuThich;
     FoodAdapter foodAdapter;
     Context context;
     @Override
