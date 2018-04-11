@@ -1,12 +1,9 @@
 package com.phananh.api;
 
 import com.phananh.api.response.LoginResponse;
-<<<<<<< HEAD
 import com.phananh.api.response.SignUpResponse;
-=======
 import com.phananh.model.Category;
 import com.phananh.model.Food;
->>>>>>> 8b3890948dc163b497ff29b1c3bb2e13ac72a05f
 import com.phananh.model.LogIn;
 import com.phananh.model.SignUp;
 
@@ -36,6 +33,8 @@ public interface APIServices {
     Call<SignUpResponse> SignUp(
             @Body SignUp signUp
     );
+
+
 
     @GET("category/")
     Call<List<Category>> getCategories(
