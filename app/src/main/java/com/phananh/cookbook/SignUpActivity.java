@@ -12,6 +12,7 @@ import com.phananh.api.APIServices;
 import com.phananh.api.ApiUtils;
 import com.phananh.api.response.LoginResponse;
 import com.phananh.api.response.SignUpResponse;
+import com.phananh.api.results.SignUpResults;
 import com.phananh.model.LogIn;
 import com.phananh.model.SignUp;
 
@@ -53,11 +54,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void signup(String name, String pass, String mail) {
         mAPIService = ApiUtils.getAPIService();
-        mAPIService.SignUp(new SignUp(name, pass,mail)).enqueue(new Callback<SignUpResponse>() {
+        mAPIService.SignUp(new SignUp(name, pass,mail)).enqueue(new Callback<SignUpResults>() {
             @Override
-            public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
-                if (response != null){
-                    Toast.makeText(SignUpActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<SignUpResults> call, Response<SignUpResults> response) {
+                if (response.body().isSuccess()){
+                    Toast.makeText(SignUpActivity.this, response.body().getSignUpResults().toString(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                     finish();
                     progressDialog.dismiss();
@@ -65,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SignUpResponse> call, Throwable t) {
+            public void onFailure(Call<SignUpResults> call, Throwable t) {
                 Toast.makeText(SignUpActivity.this, "SignUp falsed", Toast.LENGTH_SHORT).show();
             }
         });

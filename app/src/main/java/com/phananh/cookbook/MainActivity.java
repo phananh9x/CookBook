@@ -30,6 +30,7 @@ import java.util.List;
 import com.phananh.adapter.CustomBaseAdapter;
 import com.phananh.api.APIServices;
 import com.phananh.api.ApiUtils;
+import com.phananh.api.results.GetCategoryResults;
 import com.phananh.model.Category;
 import com.phananh.model.DanhMuc;
 import com.phananh.util.SharedPreference;
@@ -75,19 +76,19 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = this.getSharedPreferences("", MODE_PRIVATE);
         String token = preferences.getString("token", "");
         mAPIService = ApiUtils.getAPIService();
-        mAPIService.getCategories(token).enqueue(new Callback<List<Category>>() {
+        mAPIService.getCategories(token).enqueue(new Callback<GetCategoryResults>() {
             @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+            public void onResponse(Call<GetCategoryResults> call, Response<GetCategoryResults> response) {
                 if (response.body() != null){
                     Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-                    dsDanhMuc=response.body();
-                    getCategorySuccess(response.body());
+                    dsDanhMuc=response.body().getCategory();
+                    getCategorySuccess(response.body().getCategory());
                 }
                 progressDialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
+            public void onFailure(Call<GetCategoryResults> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
             }

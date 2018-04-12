@@ -2,6 +2,10 @@ package com.phananh.api;
 
 import com.phananh.api.response.LoginResponse;
 import com.phananh.api.response.SignUpResponse;
+import com.phananh.api.results.GetCategoryResults;
+import com.phananh.api.results.GetFoodsResults;
+import com.phananh.api.results.LoginResults;
+import com.phananh.api.results.SignUpResults;
 import com.phananh.model.Category;
 import com.phananh.model.Food;
 import com.phananh.model.LogIn;
@@ -25,24 +29,24 @@ import retrofit2.http.Path;
 public interface APIServices {
 
     @POST("users/sign_in")
-    Call<LoginResponse> login(
+    Call<LoginResults> login(
             @Body LogIn logIn
     );
 
     @POST("users/register")
-    Call<SignUpResponse> SignUp(
+    Call<SignUpResults> SignUp(
             @Body SignUp signUp
     );
 
 
 
     @GET("category/")
-    Call<List<Category>> getCategories(
+    Call<GetCategoryResults> getCategories(
             @Header("token") String token
     );
 
     @GET("food/{categoryId}")
-    Call<List<Food>> getFood(
+    Call<GetFoodsResults> getFood(
             @Header("token") String token,
             @Path("categoryId") String categoryId
     );

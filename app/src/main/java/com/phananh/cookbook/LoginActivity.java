@@ -16,6 +16,7 @@ import com.phananh.adapter.FoodAdapter;
 import com.phananh.api.APIServices;
 import com.phananh.api.ApiUtils;
 import com.phananh.api.response.LoginResponse;
+import com.phananh.api.results.LoginResults;
 import com.phananh.config.configuration;
 import com.phananh.model.LogIn;
 import com.phananh.util.ParserDulieuJSON;
@@ -66,15 +67,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(String username, String pass) {
         mAPIService = ApiUtils.getAPIService();
-        mAPIService.login(new LogIn(username, pass)).enqueue(new Callback<LoginResponse>() {
+        mAPIService.login(new LogIn(username, pass)).enqueue(new Callback<LoginResults>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                finish();
-                if (response.body() != null){
+            public void onResponse(Call<LoginResults> call, Response<LoginResults> response) {
+                if (response.body().isSuccess()){
                     Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                     SharedPreferences.Editor editor = getSharedPreferences("", MODE_PRIVATE).edit();
-                    editor.putString("token", response.body().getToken());
+                    editor.putString("token", response.body().getLoginResponse().getToken());
                     editor.apply();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
@@ -83,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<LoginResults> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
             }
         });

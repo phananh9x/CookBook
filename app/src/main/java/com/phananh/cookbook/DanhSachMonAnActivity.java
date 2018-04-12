@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.phananh.adapter.FoodAdapter;
 import com.phananh.api.ApiUtils;
+import com.phananh.api.results.GetFoodsResults;
 import com.phananh.model.Category;
 import com.phananh.model.Food;
 import com.phananh.util.RecyclerItemClickListener;
@@ -81,10 +82,10 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(false);
         progressDialog.show();
 
-        ApiUtils.getAPIService().getFood(Storage.getToken(this), idDanhMuc).enqueue(new Callback<List<Food>>() {
+        ApiUtils.getAPIService().getFood(Storage.getToken(this), idDanhMuc).enqueue(new Callback<GetFoodsResults>() {
             @Override
-            public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
-                dsMonAn = response.body();
+            public void onResponse(Call<GetFoodsResults> call, Response<GetFoodsResults> response) {
+                dsMonAn = response.body().getFood();
                 loadFoodSuccess();
                 Toast.makeText(DanhSachMonAnActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
@@ -92,7 +93,7 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Food>> call, Throwable t) {
+            public void onFailure(Call<GetFoodsResults> call, Throwable t) {
                 Toast.makeText(DanhSachMonAnActivity.this, "Get food failed!", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
 
