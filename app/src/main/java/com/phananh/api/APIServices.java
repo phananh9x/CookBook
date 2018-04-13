@@ -3,6 +3,7 @@ package com.phananh.api;
 import com.phananh.api.response.LoginResponse;
 import com.phananh.api.response.SignUpResponse;
 import com.phananh.api.results.GetCategoryResults;
+import com.phananh.api.results.GetFoodDetailResults;
 import com.phananh.api.results.GetFoodsResults;
 import com.phananh.api.results.LoginResults;
 import com.phananh.api.results.SignUpResults;
@@ -49,6 +50,12 @@ public interface APIServices {
     Call<GetFoodsResults> getFood(
             @Header("token") String token,
             @Path("categoryId") String categoryId
+    );
+
+    @GET("food/{foodId}/detail")
+    Call<GetFoodDetailResults> getFoodDetail(
+            @Header("token") String token,
+            @Path("foodId") String foodId
     );
 
 

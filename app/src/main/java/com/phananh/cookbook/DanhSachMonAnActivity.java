@@ -124,11 +124,12 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
                         // do whatever
                         Intent intent=new Intent(DanhSachMonAnActivity.this,MonAnChiTietActivity.class);
                         intent.putExtra("MONAN", dsMonAn.get(position));
-                        if(checkInternet()) {
+                        startActivity(intent);
+                        /*if(checkInternet()) {
                             startActivity(intent);
                         } else {
                             Toast.makeText(DanhSachMonAnActivity.this,"Vui lòng kiểm tra kết nối Internet của bạn!!",Toast.LENGTH_SHORT).show();
-                        }
+                        }*/
 
                     }
                 })
