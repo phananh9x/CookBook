@@ -1,5 +1,6 @@
 package com.phananh.cookbook;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -16,25 +17,36 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.phananh.adapter.FoodAdapter;
 import com.phananh.model.Food;
-import com.phananh.model.MonAn;
+import com.phananh.util.FirebaseHelper;
 import com.phananh.util.RecyclerItemClickListener;
-import com.phananh.util.SharedPreference;
 
 public class DanhSachYeuThichActivity extends AppCompatActivity {
+    DatabaseReference db;
+    FirebaseHelper helper;
     RecyclerView myRecyclerView;
-    SharedPreference sharedPreference;
-
+    ProgressDialog progressDialog;
     List<Food> dsMonAnYeuThich;
     FoodAdapter foodAdapter;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog= new ProgressDialog(DanhSachYeuThichActivity.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.show();
         setContentView(R.layout.activity_danh_sach_yeu_thich);
         context=getApplicationContext();
-
+        db = FirebaseDatabase.getInstance().getReference();
+        helper = new FirebaseHelper(db);
+        dsMonAnYeuThich = new ArrayList<>();
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolBar5);
 
         toolbar.setTitle("Danh Sách Món Ăn Yêu Thích");
@@ -60,7 +72,7 @@ public class DanhSachYeuThichActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        dsMonAnYeuThich=sharedPreference.getFavorites(context);
+        dsMonAnYeuThich = helper.retrieve();
         foodAdapter=new FoodAdapter(DanhSachYeuThichActivity.this,dsMonAnYeuThich);
         myRecyclerView.setAdapter(foodAdapter);
         foodAdapter.notifyDataSetChanged();
@@ -84,14 +96,42 @@ public class DanhSachYeuThichActivity extends AppCompatActivity {
                     }
                 })
         );
+        db.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                dsMonAnYeuThich = helper.fetchData(dataSnapshot);
+                if(dsMonAnYeuThich!=null) {
+                    foodAdapter = new FoodAdapter(DanhSachYeuThichActivity.this, dsMonAnYeuThich);
+                    myRecyclerView.setAdapter(foodAdapter);
+                    foodAdapter.notifyDataSetChanged();
+                }
+                progressDialog.dismiss();
+            }
 
-        sharedPreference=new SharedPreference();
-        dsMonAnYeuThich=sharedPreference.getFavorites(context);
-        if(dsMonAnYeuThich!=null) {
-            foodAdapter = new FoodAdapter(DanhSachYeuThichActivity.this, dsMonAnYeuThich);
-            myRecyclerView.setAdapter(foodAdapter);
-            foodAdapter.notifyDataSetChanged();
-        }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                dsMonAnYeuThich = helper.fetchData(dataSnapshot);
+                foodAdapter = new FoodAdapter(DanhSachYeuThichActivity.this, dsMonAnYeuThich);
+                myRecyclerView.setAdapter(foodAdapter);
+                foodAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
     private boolean checkInternet() {
         final ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

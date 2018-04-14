@@ -77,8 +77,11 @@ public class LoginActivity extends AppCompatActivity {
                     editor.apply();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
-                    progressDialog.dismiss();
+                }else  {
+                    Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                 }
+                progressDialog.dismiss();
+
             }
 
             @Override

@@ -28,20 +28,33 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.phananh.model.Food;
 import com.phananh.model.MonAn;
+import com.phananh.util.FirebaseHelper;
 import com.phananh.util.SharedPreference;
 import com.squareup.picasso.Picasso;
 import com.sromku.simple.fb.SimpleFacebook;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MonAnChiTietActivity extends AppCompatActivity {
+    DatabaseReference db;
+    DatabaseReference foodRef;
+    FirebaseHelper helper;
+    Boolean isExists;
     CollapsingToolbarLayout collapsingToolbarLayout;
     ImageView imgHinh;
     TextView tenMonAn,moTa,titlenguyenLieu,nguyenLieu,titlehuongDan,huongDan;
 
     NestedScrollView nestedScrollView;
     private int mPreviousVisibleItem;
-    SharedPreference sharedPreference;
+
     FloatingActionButton fab1;
     FloatingActionButton fab2;
     FloatingActionButton fab4;
@@ -64,9 +77,11 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         monAn= (Food) intent.getSerializableExtra("MONAN");
         FacebookSdk.sdkInitialize(getApplicationContext());
         simpleFacebook = SimpleFacebook.getInstance(this);
+        db = FirebaseDatabase.getInstance().getReference();
+        isExists = false;
+//        helper = new FirebaseHelper(db);
 
-
-        sharedPreference=new SharedPreference();
+//        sharedPreference=new SharedPreference();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar4);
         context= getApplicationContext();
         setSupportActionBar(toolbar);
@@ -104,107 +119,136 @@ public class MonAnChiTietActivity extends AppCompatActivity {
 
     private void addEvents() {
 
-                if (sharedPreference.checkFavoriteItem(context, monAn)) {
-                    fab3.hideMenu(false);
-                    fab.hideMenu(false);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            fab3.showMenu(true);
-                            fab3.setMenuButtonShowAnimation(AnimationUtils.loadAnimation(MonAnChiTietActivity.this, R.anim.show_from_bottom));
-                            fab3.setMenuButtonHideAnimation(AnimationUtils.loadAnimation(MonAnChiTietActivity.this, R.anim.hide_to_bottom));
-
-
-                        }
-                    }, 300);
-                    nestedScrollView = (NestedScrollView) findViewById(R.id.NestedScrollView);
-
-                    nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                        @Override
-                        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-                            if (scrollY > mPreviousVisibleItem) {
-                                fab3.hideMenu(true);
-                            } else if (scrollY < mPreviousVisibleItem) {
-                                fab3.showMenu(true);
-                            }
-                            mPreviousVisibleItem = scrollY;
-
-                        }
-                    });
-
-                    fab4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            sharedPreference.removeFavorite(context, monAn);
-                            Toast.makeText(context, "Đã xóa khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
-
-                            fab3.hideMenu(true);
-                            addEvents();
-                        }
-                    });
-                    fab5.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            shareFacebook();
-                        }
-                    });
-
-                } else {
-
-                    fab3.hideMenu(false);
-                    fab.hideMenu(false);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            fab.showMenu(true);
-                            fab.setMenuButtonShowAnimation(AnimationUtils.loadAnimation(MonAnChiTietActivity.this, R.anim.show_from_bottom));
-                            fab.setMenuButtonHideAnimation(AnimationUtils.loadAnimation(MonAnChiTietActivity.this, R.anim.hide_to_bottom));
-
-
-                        }
-                    }, 300);
-                    nestedScrollView = (NestedScrollView) findViewById(R.id.NestedScrollView);
-
-                    nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                        @Override
-                        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-                            if (scrollY > mPreviousVisibleItem) {
-                                fab.hideMenu(true);
-                            } else if (scrollY < mPreviousVisibleItem) {
-                                fab.showMenu(true);
-                            }
-                            mPreviousVisibleItem = scrollY;
-
-                        }
-                    });
-
-
-                    fab1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            sharedPreference.addFavorite(context, monAn);
-                            Toast.makeText(context, "Đã thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
-                            fab.hideMenu(true);
-                            addEvents();
-
-                        }
-                    });
-                    fab2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            shareFacebook();
-                        }
-                    });
-
+        foodRef = db.child("Food");
+        foodRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(monAn.getId()).exists()) {
+                    isExists = true;
+                    floatingButton();
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        fab3.hideMenu(false);
+        fab.hideMenu(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fab.showMenu(true);
+                fab.setMenuButtonShowAnimation(AnimationUtils.loadAnimation(MonAnChiTietActivity.this, R.anim.show_from_bottom));
+                fab.setMenuButtonHideAnimation(AnimationUtils.loadAnimation(MonAnChiTietActivity.this, R.anim.hide_to_bottom));
 
 
+            }
+        }, 300);
+        nestedScrollView = (NestedScrollView) findViewById(R.id.NestedScrollView);
 
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                if (scrollY > mPreviousVisibleItem) {
+                    fab.hideMenu(true);
+                } else if (scrollY < mPreviousVisibleItem) {
+                    fab.showMenu(true);
+                }
+                mPreviousVisibleItem = scrollY;
+
+            }
+        });
+
+
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                            sharedPreference.addFavorite(context, monAn);
+                foodRef.child(monAn.getId()).setValue(monAn);
+                Toast.makeText(context, "Đã thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                fab.hideMenu(true);
+                addEvents();
+
+            }
+        });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareFacebook();
+            }
+        });
 
     }
 
+    private void floatingButton() {
+        if (isExists) {
+            fab3.hideMenu(false);
+            fab.hideMenu(false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    fab3.showMenu(true);
+                    fab3.setMenuButtonShowAnimation(AnimationUtils.loadAnimation(MonAnChiTietActivity.this, R.anim.show_from_bottom));
+                    fab3.setMenuButtonHideAnimation(AnimationUtils.loadAnimation(MonAnChiTietActivity.this, R.anim.hide_to_bottom));
+
+
+                }
+            }, 300);
+            nestedScrollView = (NestedScrollView) findViewById(R.id.NestedScrollView);
+
+            nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                    if (scrollY > mPreviousVisibleItem) {
+                        fab3.hideMenu(true);
+                    } else if (scrollY < mPreviousVisibleItem) {
+                        fab3.showMenu(true);
+                    }
+                    mPreviousVisibleItem = scrollY;
+
+                }
+            });
+
+            fab4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                            sharedPreference.removeFavorite(context, monAn);
+                    DatabaseReference rm = db.child("Food");
+                    rm.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot postsnapshot :dataSnapshot.getChildren()) {
+                                if (postsnapshot.getKey().equals(monAn.getId().toString())) {
+                                    postsnapshot.getRef().removeValue();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    Toast.makeText(context, "Đã xóa khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
+
+                    fab3.hideMenu(true);
+                    addEvents();
+                }
+            });
+            fab5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shareFacebook();
+                }
+            });
+
+        }
+
+    }
 
 
 

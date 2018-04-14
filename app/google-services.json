@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1042756423264",
+    "firebase_url": "https://cookbook-5328d.firebaseio.com",
+    "project_id": "cookbook-5328d",
+    "storage_bucket": "cookbook-5328d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042756423264:android:3115a704fef6f1d0",
+        "android_client_info": {
+          "package_name": "com.phananh.cookbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042756423264-mma9aisvl75aj1smq6j2g3thq5vhukja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwlvHoRtjiXDXzvmTmCyP_T_Zj3vjvEbg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
