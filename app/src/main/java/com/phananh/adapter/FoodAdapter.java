@@ -5,19 +5,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.phananh.model.Category;
 import com.phananh.model.Food;
-import com.phananh.model.MonAn;
 import com.phananh.cookbook.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Minamino on 1/15/2016.
  */
-public class FoodAdapter extends RecyclerView.Adapter<FoodHolderView> {
+public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
 
 
     private Activity activity;
@@ -30,15 +27,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodHolderView> {
     }
 
     @Override
-    public FoodHolderView onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FoodViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view=View.inflate(activity,R.layout.custom_layout_danhsachmonan,null);
        // View view=View.inflate(activity,R.layout.danh_sach_mon_an,null);
 
-        return new FoodHolderView(view);
+        return new FoodViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(FoodHolderView holder, int position) {
+    public void onBindViewHolder(FoodViewHolder holder, int position) {
         Food monAn=dsMonAn.get(position);
         if(position%2==0)
         {

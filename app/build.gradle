@@ -45,6 +45,8 @@ dependencies {
     compile 'com.google.firebase:firebase-core:15.0.0'
 
     compile 'com.google.firebase:firebase-database:15.0.0'
+    compile 'com.android.support:support-v4:23.4.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

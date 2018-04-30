@@ -12,7 +12,7 @@ import com.phananh.cookbook.R;
 /**
  * Created by Minamino on 1/15/2016.
  */
-public class FoodHolderView extends RecyclerView.ViewHolder {
+public class FoodViewHolder extends RecyclerView.ViewHolder {
     public ImageView imgHinhMonAn;
     public TextView txtTenMonAn;
     public TextView txtMoTa;
@@ -20,7 +20,7 @@ public class FoodHolderView extends RecyclerView.ViewHolder {
     public LinearLayout linearLayout;
 
 
-    public FoodHolderView(View itemView) {
+    public FoodViewHolder(View itemView) {
         super(itemView);
         imgHinhMonAn= (ImageView) itemView.findViewById(R.id.imgHinhMonAn);
         txtTenMonAn= (TextView) itemView.findViewById(R.id.txtTenMonAn);

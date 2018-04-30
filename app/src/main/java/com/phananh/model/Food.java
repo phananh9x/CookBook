@@ -20,7 +20,7 @@ public class Food implements Serializable{
     public List<Content> content = null;
     @SerializedName("favourite")
     @Expose
-    public Integer favourite;
+    public List<String> favourite;
     @SerializedName("created")
     @Expose
     public String created;
@@ -69,11 +69,14 @@ public class Food implements Serializable{
         this.content = content;
     }
 
-    public Integer getFavourite() {
+    public List<String> getFavourite() {
+        if(favourite== null) {
+            favourite = new ArrayList<>();
+        }
         return favourite;
     }
 
-    public void setFavourite(Integer favourite) {
+    public void setFavourite(List<String> favourite) {
         this.favourite = favourite;
     }
 

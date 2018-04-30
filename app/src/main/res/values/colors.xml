@@ -15,5 +15,10 @@
     <color name="accent_material_dark">#ff4081</color>
     <color name="RosyBrown1">#FFC1C1</color>
     <color name="blue_facebook">#42A5F5</color>
+    <color name="tabcolor">#f2f2f2</color>
+    <color name="tabselect">#f40404</color>
     <color name="white">#ffffff</color>
+    <color name="grey">#f2f2f2</color>
+    <color name="light_green3">#f2f2f2</color>
+    <color name="light_green4">#FFFFFF</color>
 </resources>
