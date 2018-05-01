@@ -42,12 +42,16 @@ public class SignUpActivity extends AppCompatActivity {
         findViewById(R.id.btn_signup_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog = new ProgressDialog(SignUpActivity.this);
-                //  progressDialog.setTitle("Vui Lòng Chờ !");
-                progressDialog.setMessage("Loading...");
-                progressDialog.setIndeterminate(false);
-                progressDialog.show();
-                signup(fullName.getText().toString(), passWord.getText().toString(),tvEmail.getText().toString());
+                if(passWord.getText().toString()==rePassword.getText().toString()){
+                    progressDialog = new ProgressDialog(SignUpActivity.this);
+                    //  progressDialog.setTitle("Vui Lòng Chờ !");
+                    progressDialog.setMessage("Loading...");
+                    progressDialog.setIndeterminate(false);
+                    progressDialog.show();
+                    signup(fullName.getText().toString(), passWord.getText().toString(),tvEmail.getText().toString());
+                }else {
+                    Toast.makeText(SignUpActivity.this, "re-pass wrong!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     };

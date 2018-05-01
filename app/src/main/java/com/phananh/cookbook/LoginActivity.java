@@ -63,6 +63,18 @@ public class LoginActivity extends AppCompatActivity {
                 login(userName.getText().toString(), passWord.getText().toString());
             }
         });
+        findViewById(R.id.tv_signup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+            }
+        });
+        findViewById(R.id.textView7).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
+        });
     }
 
     private void login(String username, String pass) {

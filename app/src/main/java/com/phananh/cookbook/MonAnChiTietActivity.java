@@ -122,8 +122,6 @@ public class MonAnChiTietActivity extends AppCompatActivity {
 
 
 
-
-
     }
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
