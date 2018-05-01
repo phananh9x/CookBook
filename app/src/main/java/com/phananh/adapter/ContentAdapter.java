@@ -48,6 +48,7 @@ public class ContentAdapter  extends RecyclerView.Adapter<ContentViewHolder> {
             Picasso.with(activity).load(content.getArrImage().get(1).image).placeholder(R.drawable.none).error(R.drawable.none).into(holder.img2);
         }
         if(content.getArrImage().size() >=3 && !content.getArrImage().get(2).image.isEmpty()) {
+
             Picasso.with(activity).load(content.getArrImage().get(2).image).placeholder(R.drawable.none).error(R.drawable.none).into(holder.img3);
         }
         if(content.getArrImage().size() >=4 && !content.getArrImage().get(3).image.isEmpty()) {

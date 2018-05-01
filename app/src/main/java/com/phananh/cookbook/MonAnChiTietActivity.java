@@ -2,6 +2,7 @@ package com.phananh.cookbook;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -37,6 +38,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.phananh.adapter.PagerAdapter;
+import com.phananh.api.APIServices;
+import com.phananh.api.ApiUtils;
+import com.phananh.api.results.GetCategoryResults;
+import com.phananh.api.results.GetCommentOfFood;
+import com.phananh.model.Comment;
 import com.phananh.model.Food;
 import com.phananh.model.MonAn;
 import com.phananh.util.FirebaseHelper;
@@ -44,10 +50,17 @@ import com.phananh.util.SharedPreference;
 import com.squareup.picasso.Picasso;
 import com.sromku.simple.fb.SimpleFacebook;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MonAnChiTietActivity extends AppCompatActivity {
+    private APIServices mAPIService;
     private ViewPager pager;
     private TabLayout tabLayout;
     DatabaseReference db;
@@ -57,6 +70,8 @@ public class MonAnChiTietActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     ImageView imgHinh;
     ImageView imgFavorite;
+
+    List<Comment> dsComment;
 
     NestedScrollView nestedScrollView;
     private int mPreviousVisibleItem;
@@ -96,7 +111,7 @@ public class MonAnChiTietActivity extends AppCompatActivity {
 
         addControls();
         addEvents();
-
+        getComment();
 
 
 
@@ -325,6 +340,7 @@ public class MonAnChiTietActivity extends AppCompatActivity {
 
 
     private void addControls() {
+        dsComment = new ArrayList<>();
         imgHinh= (ImageView) findViewById(R.id.imgHinh);
         imgFavorite = (ImageView) findViewById(R.id.icFavorite);
         fab1= (FloatingActionButton) findViewById(R.id.fab1);
@@ -365,7 +381,27 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         return monAn;
     }
 
+    public List<Comment> getListComment() {
+        return dsComment;
+    }
 
+    public void getComment() {
+        SharedPreferences preferences = this.getSharedPreferences("", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        mAPIService = ApiUtils.getAPIService();
+        mAPIService.getCommentOfFood(token, monAn.id).enqueue(new Callback<GetCommentOfFood>() {
+            @Override
+            public void onResponse(Call<GetCommentOfFood> call, Response<GetCommentOfFood> response) {
+                if (response.body() != null){
+                    Toast.makeText(MonAnChiTietActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                    dsComment=response.body().getCommentOfFood();
+                }
+            }
 
-
+            @Override
+            public void onFailure(Call<GetCommentOfFood> call, Throwable t) {
+                Toast.makeText(MonAnChiTietActivity.this, "Get list comment failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
