@@ -3,13 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CookBook.iml" filepath="$PROJECT_DIR$/CookBook.iml" />
-      <module fileurl="file://C:\Users\LeNghi\Desktop\android\cookv3\CookBook\CookBook.iml" filepath="C:\Users\LeNghi\Desktop\android\cookv3\CookBook\CookBook.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\LeNghi\Desktop\android\cookv3\CookBook\app\app.iml" filepath="C:\Users\LeNghi\Desktop\android\cookv3\CookBook\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/codejava/codejava.iml" filepath="$PROJECT_DIR$/codejava/codejava.iml" />
-      <module fileurl="file://C:\Users\LeNghi\Desktop\android\cookv3\CookBook\codejava\codejava.iml" filepath="C:\Users\LeNghi\Desktop\android\cookv3\CookBook\codejava\codejava.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
-      <module fileurl="file://C:\Users\LeNghi\Desktop\android\cookv3\CookBook\lib\lib.iml" filepath="C:\Users\LeNghi\Desktop\android\cookv3\CookBook\lib\lib.iml" />
     </modules>
   </component>
 </project>

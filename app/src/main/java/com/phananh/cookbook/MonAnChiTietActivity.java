@@ -2,11 +2,15 @@ package com.phananh.cookbook;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +37,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.phananh.adapter.PagerAdapter;
+import com.phananh.api.APIServices;
+import com.phananh.api.ApiUtils;
+import com.phananh.api.results.GetCategoryResults;
+import com.phananh.api.results.GetCommentOfFood;
+import com.phananh.model.Comment;
 import com.phananh.model.Food;
 import com.phananh.model.MonAn;
 import com.phananh.util.FirebaseHelper;
@@ -40,17 +50,28 @@ import com.phananh.util.SharedPreference;
 import com.squareup.picasso.Picasso;
 import com.sromku.simple.fb.SimpleFacebook;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MonAnChiTietActivity extends AppCompatActivity {
+    private APIServices mAPIService;
+    private ViewPager pager;
+    private TabLayout tabLayout;
     DatabaseReference db;
     DatabaseReference foodRef;
     FirebaseHelper helper;
     Boolean isExists;
     CollapsingToolbarLayout collapsingToolbarLayout;
     ImageView imgHinh;
-    TextView tenMonAn,moTa,titlenguyenLieu,nguyenLieu,titlehuongDan,huongDan;
+    ImageView imgFavorite;
+
+    List<Comment> dsComment;
 
     NestedScrollView nestedScrollView;
     private int mPreviousVisibleItem;
@@ -90,6 +111,9 @@ public class MonAnChiTietActivity extends AppCompatActivity {
 
         addControls();
         addEvents();
+        getComment();
+
+
 
     }
     @Override
@@ -129,6 +153,17 @@ public class MonAnChiTietActivity extends AppCompatActivity {
 
             }
         });
+        LoadScrollEvent();
+        imgFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imgFavorite.setBackgroundResource(R.drawable.ic_favorite_white_36dp);
+            }
+        });
+
+    }
+
+    private void LoadScrollEvent() {
         fab3.hideMenu(false);
         fab.hideMenu(false);
         new Handler().postDelayed(new Runnable() {
@@ -175,7 +210,6 @@ public class MonAnChiTietActivity extends AppCompatActivity {
                 shareFacebook();
             }
         });
-
     }
 
     private void floatingButton() {
@@ -304,13 +338,9 @@ public class MonAnChiTietActivity extends AppCompatActivity {
 
 
     private void addControls() {
+        dsComment = new ArrayList<>();
         imgHinh= (ImageView) findViewById(R.id.imgHinh);
-        tenMonAn= (TextView) findViewById(R.id.tenMonAn);
-        moTa= (TextView) findViewById(R.id.moTa);
-        titlenguyenLieu= (TextView) findViewById(R.id.titlenguyenLieu);
-        nguyenLieu= (TextView) findViewById(R.id.nguyenLieu);
-        titlehuongDan= (TextView) findViewById(R.id.titlehuongDan);
-        huongDan= (TextView) findViewById(R.id.huongDan);
+        imgFavorite = (ImageView) findViewById(R.id.icFavorite);
         fab1= (FloatingActionButton) findViewById(R.id.fab1);
         fab2= (FloatingActionButton) findViewById(R.id.fab2);
         fab4= (FloatingActionButton) findViewById(R.id.fab4);
@@ -322,16 +352,18 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         collapsingToolbarLayout.setTitle(monAn.name);
         collapsingToolbarLayout.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
-        tenMonAn.setText(monAn.name);
-        moTa.setText(monAn.decriptions);
-        titlenguyenLieu.setText("Nguyên Liệu");
-        nguyenLieu.setText(monAn.material);
-        titlehuongDan.setText("Hướng Dẫn");
-        huongDan.setText(monAn.youtube);
+
         Picasso.with(this).load(monAn.image).placeholder(R.drawable.none).error(R.drawable.none).into(imgHinh);
 
 
-
+        pager = (ViewPager) findViewById(R.id.view_pager);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        FragmentManager manager = getSupportFragmentManager();
+        PagerAdapter adapter = new PagerAdapter(manager);
+        pager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(pager);
+        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setTabsFromPagerAdapter(adapter);
 
     }
 
@@ -343,9 +375,31 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    public Food getMyData() {
+        return monAn;
+    }
 
+    public List<Comment> getListComment() {
+        return dsComment;
+    }
 
+    public void getComment() {
+        SharedPreferences preferences = this.getSharedPreferences("", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        mAPIService = ApiUtils.getAPIService();
+        mAPIService.getCommentOfFood(token, monAn.id).enqueue(new Callback<GetCommentOfFood>() {
+            @Override
+            public void onResponse(Call<GetCommentOfFood> call, Response<GetCommentOfFood> response) {
+                if (response.body() != null){
+                    Toast.makeText(MonAnChiTietActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                    dsComment=response.body().getCommentOfFood();
+                }
+            }
 
-
-
+            @Override
+            public void onFailure(Call<GetCommentOfFood> call, Throwable t) {
+                Toast.makeText(MonAnChiTietActivity.this, "Get list comment failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
