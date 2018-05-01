@@ -1,5 +1,6 @@
 package com.phananh.api;
 
+import com.phananh.api.response.CommentResponse;
 import com.phananh.api.response.LoginResponse;
 import com.phananh.api.response.SignUpResponse;
 import com.phananh.api.results.GetCategoryResults;
@@ -9,6 +10,7 @@ import com.phananh.api.results.GetFoodsResults;
 import com.phananh.api.results.LoginResults;
 import com.phananh.api.results.SignUpResults;
 import com.phananh.model.Category;
+import com.phananh.model.Comment;
 import com.phananh.model.Food;
 import com.phananh.model.LogIn;
 import com.phananh.model.SignUp;
@@ -66,9 +68,10 @@ public interface APIServices {
     );
 
     @POST("comment/{foodId}/create")
-    Call<GetCommentOfFood> postCommentOfFood(
+    Call<CommentResponse> postCommentOfFood(
             @Header("token") String token,
-            @Path("foodId") String foodId
+            @Path("foodId") String foodId,
+            @Body Comment comment
     );
 
 

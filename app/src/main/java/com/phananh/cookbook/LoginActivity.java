@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                     SharedPreferences.Editor editor = getSharedPreferences("", MODE_PRIVATE).edit();
                     editor.putString("token", response.body().getLoginResponse().getToken());
+                    editor.putString("username", response.body().getLoginResponse().getEmail());
                     editor.apply();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();

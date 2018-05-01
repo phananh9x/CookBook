@@ -1,5 +1,6 @@
 package com.phananh.cookbook;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.phananh.adapter.PagerAdapter;
 import com.phananh.api.APIServices;
 import com.phananh.api.ApiUtils;
+import com.phananh.api.response.CommentResponse;
 import com.phananh.api.results.GetCategoryResults;
 import com.phananh.api.results.GetCommentOfFood;
 import com.phananh.model.Comment;
@@ -60,6 +62,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MonAnChiTietActivity extends AppCompatActivity {
+    SharedPreferences preferences ;
+    String token;
+    String username;
     private APIServices mAPIService;
     private ViewPager pager;
     private TabLayout tabLayout;
@@ -70,7 +75,6 @@ public class MonAnChiTietActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     ImageView imgHinh;
     ImageView imgFavorite;
-
     List<Comment> dsComment;
 
     NestedScrollView nestedScrollView;
@@ -100,6 +104,9 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         simpleFacebook = SimpleFacebook.getInstance(this);
         db = FirebaseDatabase.getInstance().getReference();
         isExists = false;
+        preferences = this.getSharedPreferences("", MODE_PRIVATE);
+        token = preferences.getString("token", "");
+        username = preferences.getString("username", "");
 //        helper = new FirebaseHelper(db);
 
 //        sharedPreference=new SharedPreference();
@@ -162,6 +169,8 @@ public class MonAnChiTietActivity extends AppCompatActivity {
                 imgFavorite.setBackgroundResource(R.drawable.ic_favorite_white_36dp);
             }
         });
+
+
 
     }
 
@@ -367,6 +376,7 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabsFromPagerAdapter(adapter);
 
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -380,14 +390,19 @@ public class MonAnChiTietActivity extends AppCompatActivity {
     public Food getMyData() {
         return monAn;
     }
+    public String getToken() {
+        return token;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 
     public List<Comment> getListComment() {
         return dsComment;
     }
 
     public void getComment() {
-        SharedPreferences preferences = this.getSharedPreferences("", MODE_PRIVATE);
-        String token = preferences.getString("token", "");
         mAPIService = ApiUtils.getAPIService();
         mAPIService.getCommentOfFood(token, monAn.id).enqueue(new Callback<GetCommentOfFood>() {
             @Override

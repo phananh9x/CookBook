@@ -77,4 +77,15 @@ public class Comment {
     public void setFoodId(String foodId) {
         this.foodId = foodId;
     }
+
+    public Comment(String name, String content) {
+        this.name = name;
+        this.content = content;
+    }
+
+    public Comment(String name, String content, String image) {
+        this.name = name;
+        this.content = content;
+        this.image = image;
+    }
 }

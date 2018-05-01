@@ -13,18 +13,18 @@
     android:id="@+id/LinearLayout">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="67dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
 
         >
-        <ImageView
-
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgUser"
             android:layout_width="86dp"
             android:layout_height="65dp"
-            android:id="@+id/imgUser"
-            android:src="@drawable/none" />
+            android:src="@drawable/none"
 
-
+            />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
 
             <TextView
 
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -46,7 +46,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
