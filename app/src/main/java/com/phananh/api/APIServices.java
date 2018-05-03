@@ -61,6 +61,13 @@ public interface APIServices {
             @Path("foodId") String foodId
     );
 
+    @POST("food/{foodId}/update")
+    Call<GetFoodDetailResults> getFoodUpdate(
+            @Header("token") String token,
+            @Path("foodId") String foodId,
+            @Body Food food
+    );
+
     @GET("comment/{foodId}/")
     Call<GetCommentOfFood> getCommentOfFood(
             @Header("token") String token,

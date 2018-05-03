@@ -17,4 +17,8 @@ public class GetFoodDetailResults extends BaseResponse {
     public com.phananh.model.Food getFoodDetail() {
         return Food;
     }
+
+    public com.phananh.model.Food getFoodUpdate() {
+        return Food;
+    }
 }
