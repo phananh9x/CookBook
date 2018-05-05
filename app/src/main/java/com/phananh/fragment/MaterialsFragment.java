@@ -20,7 +20,6 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class MaterialsFragment extends Fragment {
-    private List<Material> dsMaterial;
     private RecyclerView recyclerView;
     private MaterialsAdapter materialAdapter;
     private LinearLayoutManager mLayoutManager;

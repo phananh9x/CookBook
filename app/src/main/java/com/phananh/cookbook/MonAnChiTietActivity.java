@@ -47,6 +47,7 @@ import com.phananh.api.results.GetCommentOfFood;
 import com.phananh.model.Comment;
 import com.phananh.model.Food;
 import com.phananh.model.MonAn;
+import com.phananh.sqlite.SQLiteDatabaseHandler;
 import com.phananh.util.FirebaseHelper;
 import com.phananh.util.SharedPreference;
 import com.squareup.picasso.Picasso;
@@ -62,15 +63,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MonAnChiTietActivity extends AppCompatActivity {
-    SharedPreferences preferences ;
+//    SharedPreferences preferences ;
+    SQLiteDatabaseHandler dbSQL;
     String token;
-    String username;
     private APIServices mAPIService;
     private ViewPager pager;
     private TabLayout tabLayout;
     DatabaseReference db;
     DatabaseReference foodRef;
-    FirebaseHelper helper;
     Boolean isExists;
     CollapsingToolbarLayout collapsingToolbarLayout;
     ImageView imgHinh;
@@ -94,6 +94,7 @@ public class MonAnChiTietActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,9 +105,12 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         simpleFacebook = SimpleFacebook.getInstance(this);
         db = FirebaseDatabase.getInstance().getReference();
         isExists = false;
-        preferences = this.getSharedPreferences("", MODE_PRIVATE);
-        token = preferences.getString("token", "");
-        username = preferences.getString("username", "");
+        dbSQL = new SQLiteDatabaseHandler(this);
+
+        token = dbSQL.getToken();
+//        preferences = this.getSharedPreferences("", MODE_PRIVATE);
+//        token = preferences.getString("token", "");
+//        username = preferences.getString("username", "");
 //        helper = new FirebaseHelper(db);
 
 //        sharedPreference=new SharedPreference();
@@ -390,10 +394,6 @@ public class MonAnChiTietActivity extends AppCompatActivity {
     }
     public String getToken() {
         return token;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public List<Comment> getListComment() {

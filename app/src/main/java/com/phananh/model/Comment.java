@@ -78,8 +78,7 @@ public class Comment {
         this.foodId = foodId;
     }
 
-    public Comment(String name, String content) {
-        this.name = name;
+    public Comment(String content) {
         this.content = content;
     }
 

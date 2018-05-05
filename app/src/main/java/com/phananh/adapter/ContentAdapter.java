@@ -42,16 +42,19 @@ public class ContentAdapter  extends RecyclerView.Adapter<ContentViewHolder> {
         holder.vitri.setText(String.valueOf(position+1));
         holder.buoc.setText(content.getStep().toString());
         if(content.getArrImage().size() >=1 && !content.getArrImage().get(0).image.isEmpty()) {
+            holder.img1.setVisibility(View.VISIBLE);
             Picasso.with(activity).load(content.getArrImage().get(0).image).placeholder(R.drawable.none).error(R.drawable.none).into(holder.img1);
         }
         if(content.getArrImage().size() >=2 && !content.getArrImage().get(1).image.isEmpty()) {
+            holder.img2.setVisibility(View.VISIBLE);
             Picasso.with(activity).load(content.getArrImage().get(1).image).placeholder(R.drawable.none).error(R.drawable.none).into(holder.img2);
         }
         if(content.getArrImage().size() >=3 && !content.getArrImage().get(2).image.isEmpty()) {
-
+            holder.img3.setVisibility(View.VISIBLE);
             Picasso.with(activity).load(content.getArrImage().get(2).image).placeholder(R.drawable.none).error(R.drawable.none).into(holder.img3);
         }
         if(content.getArrImage().size() >=4 && !content.getArrImage().get(3).image.isEmpty()) {
+            holder.img4.setVisibility(View.VISIBLE);
             Picasso.with(activity).load(content.getArrImage().get(3).image).placeholder(R.drawable.none).error(R.drawable.none).into(holder.img4);
         }
     }

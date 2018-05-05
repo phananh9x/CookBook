@@ -33,6 +33,7 @@ import com.phananh.api.ApiUtils;
 import com.phananh.api.results.GetCategoryResults;
 import com.phananh.model.Category;
 import com.phananh.model.DanhMuc;
+import com.phananh.sqlite.SQLiteDatabaseHandler;
 import com.phananh.util.SharedPreference;
 
 import retrofit2.Call;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     GridView gridView;
     ProgressDialog progressDialog;
-
+    SQLiteDatabaseHandler db;
+    String token;
     String regId;
 
     List<Category> dsDanhMuc;
@@ -73,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.setIndeterminate(false);
         progressDialog.show();
-        SharedPreferences preferences = this.getSharedPreferences("", MODE_PRIVATE);
-        String token = preferences.getString("token", "");
+        db = new SQLiteDatabaseHandler(this);
+        token = db.getToken();
+//        SharedPreferences preferences = this.getSharedPreferences("", MODE_PRIVATE);
+//        String token = preferences.getString("token", "");
         mAPIService = ApiUtils.getAPIService();
         mAPIService.getCategories(token).enqueue(new Callback<GetCategoryResults>() {
             @Override

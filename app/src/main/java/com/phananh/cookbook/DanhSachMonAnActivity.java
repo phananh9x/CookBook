@@ -26,6 +26,7 @@ import com.phananh.api.ApiUtils;
 import com.phananh.api.results.GetFoodsResults;
 import com.phananh.model.Category;
 import com.phananh.model.Food;
+import com.phananh.sqlite.SQLiteDatabaseHandler;
 import com.phananh.util.RecyclerItemClickListener;
 import com.phananh.util.Storage;
 
@@ -41,6 +42,8 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
     RecyclerView myRecyclerView;
     ProgressDialog progressDialog;
     Category danhMuc=null;
+    SQLiteDatabaseHandler db;
+    String token;
 
 
 
@@ -49,6 +52,7 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.danh_sach_mon_an_reclerview);
+        db = new SQLiteDatabaseHandler(this);
 
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolBar1);
         toolbar.setTitle("Danh Sách Món Ăn");
@@ -82,7 +86,9 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(false);
         progressDialog.show();
 
-        ApiUtils.getAPIService().getFood(Storage.getToken(this), idDanhMuc).enqueue(new Callback<GetFoodsResults>() {
+        token = db.getToken();
+
+        ApiUtils.getAPIService().getFood(token, idDanhMuc).enqueue(new Callback<GetFoodsResults>() {
             @Override
             public void onResponse(Call<GetFoodsResults> call, Response<GetFoodsResults> response) {
                 dsMonAn = response.body().getFood();

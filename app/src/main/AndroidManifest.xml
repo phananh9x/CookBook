@@ -59,7 +59,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserProfilesActivity"></activity>
+        <activity android:name=".UserProfilesActivity" />
+        <activity android:name=".CreateFoodActivity"></activity>
     </application>
 
 </manifest>

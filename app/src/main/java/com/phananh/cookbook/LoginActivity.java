@@ -19,6 +19,7 @@ import com.phananh.api.response.LoginResponse;
 import com.phananh.api.results.LoginResults;
 import com.phananh.config.configuration;
 import com.phananh.model.LogIn;
+import com.phananh.sqlite.SQLiteDatabaseHandler;
 import com.phananh.util.ParserDulieuJSON;
 
 import java.io.BufferedReader;
@@ -84,10 +85,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResults> call, Response<LoginResults> response) {
                 if (response.body().isSuccess()){
                     Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-                    SharedPreferences.Editor editor = getSharedPreferences("", MODE_PRIVATE).edit();
-                    editor.putString("token", response.body().getLoginResponse().getToken());
-                    editor.putString("username", response.body().getLoginResponse().getEmail());
-                    editor.apply();
+                    SQLiteDatabaseHandler db = new SQLiteDatabaseHandler(LoginActivity.this);
+                    db.save(SQLiteDatabaseHandler.KEY_TOKEN, response.body().getLoginResponse().getToken());
+//                    db.save(SQLiteDatabaseHandler.USERID, response.body().getLoginResponse().getId());
+//                    db.save(SQLiteDatabaseHandler.USERNAME, response.body().getLoginResponse().getEmail());
+
+//                    SharedPreferences.Editor editor = getSharedPreferences("", MODE_PRIVATE).edit();
+//                    editor.putString("token", response.body().getLoginResponse().getToken());
+//                    editor.putString("username", response.body().getLoginResponse().getEmail());
+//                    editor.apply();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 }else  {

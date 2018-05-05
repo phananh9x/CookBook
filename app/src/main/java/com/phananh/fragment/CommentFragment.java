@@ -62,7 +62,7 @@ public class CommentFragment extends Fragment {
                 progressDialog.show();
 
                 mAPIService = ApiUtils.getAPIService();
-                mAPIService.postCommentOfFood(activity.getToken(), activity.getMyData().id, new Comment(activity.getUsername(), edtComment.getText().toString())).enqueue(new Callback<CommentResponse>() {
+                mAPIService.postCommentOfFood(activity.getToken(), activity.getMyData().id, new Comment(edtComment.getText().toString())).enqueue(new Callback<CommentResponse>() {
                     @Override
                     public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
                         Toast.makeText(view.getContext(), response.toString(), Toast.LENGTH_SHORT).show();

@@ -57,6 +57,8 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:id="@+id/imgHinh1"
+                android:visibility="gone"
+
                 android:padding="5dp"
                 android:src="@drawable/none"/>
             <ImageView
@@ -64,18 +66,25 @@
                 android:layout_height="150dp"
                 android:id="@+id/imgHinh2"
                 android:padding="5dp"
+                android:visibility="gone"
+
                 android:src="@drawable/none"/>
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:padding="5dp"
                 android:id="@+id/imgHinh3"
+                android:src="@drawable/none"
+                android:visibility="gone"
+
                 />
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:padding="5dp"
                 android:id="@+id/imgHinh4"
+                android:src="@drawable/none"
+                android:visibility="gone"
                 />
         </GridLayout>
 
