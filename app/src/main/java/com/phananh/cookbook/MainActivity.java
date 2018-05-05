@@ -134,12 +134,18 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent1=new Intent(MainActivity.this,ThongTinUngDungActivity.class);
                         startActivity(intent1);
                         break;
+                    case R.id.updateProfiles:
+                        Intent intentProfiles = new Intent(MainActivity.this,UserProfilesActivity.class);
+                        startActivity(intentProfiles);
+
                     case R.id.checkUpdate:
                         Toast.makeText(MainActivity.this,"Bạn đã cập nhật phiên bản mới nhất ! Vui vòng quay lại sau.",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.moreApp:
                         Toast.makeText(MainActivity.this,"Tính năng này đang hoàn thành ! Vui vòng quay lại sau.",Toast.LENGTH_SHORT).show();
                         break;
+
+
                 }
                 return true;
             }

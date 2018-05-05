@@ -13,6 +13,11 @@
             android:icon="@drawable/ic_star_white_24dp"
             android:title="@string/List_Favorites" />
         <item
+            android:id="@+id/updateProfiles"
+            android:icon="@drawable/ic_star_white_24dp"
+            android:title="@string/yourprofiles" />
+
+        <item
             android:id="@+id/moreApp"
             android:icon="@drawable/ic_cloud_download_white_24dp"
             android:title="@string/More_App" />

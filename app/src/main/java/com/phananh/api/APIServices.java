@@ -1,25 +1,21 @@
 package com.phananh.api;
 
 import com.phananh.api.response.CommentResponse;
-import com.phananh.api.response.LoginResponse;
-import com.phananh.api.response.SignUpResponse;
+import com.phananh.api.response.UserProfileResponse;
 import com.phananh.api.results.GetCategoryResults;
 import com.phananh.api.results.GetCommentOfFood;
 import com.phananh.api.results.GetFoodDetailResults;
 import com.phananh.api.results.GetFoodsResults;
 import com.phananh.api.results.LoginResults;
 import com.phananh.api.results.SignUpResults;
-import com.phananh.model.Category;
+import com.phananh.api.results.UserProfilesResults;
 import com.phananh.model.Comment;
 import com.phananh.model.Food;
 import com.phananh.model.LogIn;
 import com.phananh.model.SignUp;
+import com.phananh.model.UserProfiles;
 
-import java.util.List;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -80,6 +76,19 @@ public interface APIServices {
             @Path("foodId") String foodId,
             @Body Comment comment
     );
+
+    @GET("users/{userId}/info")
+    Call<UserProfilesResults> getUserProfiles(
+            @Header("token") String token,
+            @Path("userId") String userId
+    );
+
+    @POST("users/{userId}/update")
+    Call<UserProfileResponse> getUserProfiles(
+            @Header("token") String token,
+            @Path("userId") String userId,
+            @Body UserProfiles userProfiles
+            );
 
 
 }
