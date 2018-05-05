@@ -330,10 +330,10 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         });
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
-                    .setContentTitle(monAn.name)
-                    .setContentDescription(monAn.name + "")
+                    .setContentTitle(monAn.getName())
+                    .setContentDescription(monAn.getDecriptions() + "")
 //                    .setContentUrl(Uri.parse(monAn.getUrl().toString()))
-                    .setImageUrl(Uri.parse(monAn.image))
+                    .setImageUrl(Uri.parse(monAn.getImage()))
                     .build();
                     // ShareDialog.show(MonAnChiTietActivity.this,shareLinkContent);
                 //    shareDialog.show(shareLinkContent);

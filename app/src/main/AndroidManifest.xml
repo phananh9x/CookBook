@@ -27,7 +27,7 @@
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider1579723089010763"
+            android:authorities="com.facebook.app.FacebookContentProvider371607886657006"
             android:exported="true" />
 
         <activity
@@ -45,22 +45,11 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".ThongTinUngDungActivity" />
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".UserProActivity" />
+        <activity android:name=".UserProfilesActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".SignUpActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".UserProfilesActivity" />
-        <activity android:name=".CreateFoodActivity"></activity>
     </application>
 
 </manifest>

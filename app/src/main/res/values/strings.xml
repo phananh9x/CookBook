@@ -63,7 +63,7 @@
     <string name="title_activity_second">SecondActivity</string>
     <string name="recyclerview_fab_example">RecyclerView FAB example</string>
     <string name="floating_action_menu">Floating Action Menu</string>
-    <string name="facebook_app_id">1579723089010763</string>
+    <string name="facebook_app_id">371607886657006</string>
 
     <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
     <string name="server_registering">Đang thử (lần %1$d/%2$d) để đăng ký thiết bị trên GCM Server.</string>
@@ -85,5 +85,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yourprofiles">YourProfiles</string>
 
 </resources>
