@@ -61,6 +61,7 @@ public class UserProfilesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profiles);
         db = new SQLiteDatabaseHandler(UserProfilesActivity.this);
         token = db.getToken();
+        IMAGE_UPDATE = "";
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBarId);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

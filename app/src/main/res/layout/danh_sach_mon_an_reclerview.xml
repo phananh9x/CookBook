@@ -3,20 +3,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/light_green_actionbar"
         android:id="@+id/toolBar1"
-        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:theme="@style/MyAppCompat"
+        android:background="@color/light_green_actionbar"
+        android:fitsSystemWindows="true"
+        android:minHeight="?attr/actionBarSize"
         android:title="Danh Sách Món Ăn"
+        app:theme="@style/MyAppCompat"
 
 
-        />
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/btnCreateFood"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_add_circle_outline_white_36dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
 
     <!-- A RecyclerView with some commonly used attributes -->

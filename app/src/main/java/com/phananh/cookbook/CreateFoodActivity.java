@@ -27,6 +27,8 @@ import com.phananh.adapter.CreateFoodAdapter;
 import com.phananh.api.APIServices;
 import com.phananh.api.ApiUtils;
 import com.phananh.api.results.GetUploadResults;
+import com.phananh.model.Category;
+import com.phananh.model.Food;
 import com.phananh.model.UploadImage;
 import com.phananh.sqlite.SQLiteDatabaseHandler;
 import com.phananh.util.ReadPathUtil;
@@ -50,6 +52,9 @@ public class CreateFoodActivity extends AppCompatActivity {
     List<String> data;
     ImageView imgFood;
     String IMAGE_PATH;
+    Category danhMuc;
+    Food food;
+
     String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBoYW5hbmgxMjNxcXFAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJOaGF0IEFuaCIsIl9pZCI6IjVhYWE0MTU1YjM4Yjg3MjBjODAxNWM1MCIsInBob25lIjoiMDk4OTg4ODg4OCIsImFkZHJlc3MiOiI5NyBNYW4gdGhpZW4gcXVhbiA5IHRwIEhvIENoaSBNaW5oIiwiZ2VuZGVyIjp0cnVlLCJiaXJ0aGRheSI6IjE5OTYtMTItMTJUMDA6MDA6MDAuMDAwWiIsImlhdCI6MTUyNTI3NDUxOH0.SWxNngIwIhIOlb-XncrwQwfUrLOT0ijc8zFqoa3W2y4";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,11 @@ public class CreateFoodActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        Intent intent = getIntent();
+        danhMuc = (Category) intent.getSerializableExtra("DANHMUC");
+        Toast.makeText(this, danhMuc.getName(), Toast.LENGTH_SHORT).show();
         imgFood = (ImageView) findViewById(R.id.imgFood);
+
         findViewById(R.id.txtUpload).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

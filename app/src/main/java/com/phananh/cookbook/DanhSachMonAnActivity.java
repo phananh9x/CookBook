@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -44,6 +45,7 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
     Category danhMuc=null;
     SQLiteDatabaseHandler db;
     String token;
+    ImageView btnCreateFood;
 
 
 
@@ -127,6 +129,14 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
                     }
                 })
         );
+        btnCreateFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(DanhSachMonAnActivity.this,CreateFoodActivity.class);
+                intent.putExtra("DANHMUC", danhMuc);
+                startActivity(intent);
+            }
+        });
     }
 
     private boolean checkInternet() {
@@ -140,6 +150,7 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        btnCreateFood = (ImageView) findViewById(R.id.btnCreateFood);
         myRecyclerView= (RecyclerView) findViewById(R.id.my_recycler_view);
         myRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
