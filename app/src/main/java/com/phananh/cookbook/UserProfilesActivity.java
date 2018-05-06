@@ -75,6 +75,12 @@ public class UserProfilesActivity extends AppCompatActivity {
                 updateUserProfiles();
             }
         });
+        findViewById(R.id.btn_update_profiles).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateUserProfiles();
+            }
+        });
     }
 
     private void updateUserProfiles() {
@@ -84,6 +90,7 @@ public class UserProfilesActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                 Toast.makeText(UserProfilesActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
