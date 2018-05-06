@@ -14,8 +14,8 @@
             android:title="@string/List_Favorites" />
         <item
             android:id="@+id/updateProfiles"
-            android:icon="@drawable/ic_star_white_24dp"
-            android:title="@string/yourprofiles" />
+            android:icon="@drawable/ic_account_circle_black_36dp"
+            android:title="Thông tin người dùng" />
 
         <item
             android:id="@+id/moreApp"

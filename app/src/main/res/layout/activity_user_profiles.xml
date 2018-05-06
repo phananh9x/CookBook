@@ -53,6 +53,8 @@
             android:id="@+id/profile_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/header_cover_image"
             android:background="#ebca0707"
             android:elevation="4dp"

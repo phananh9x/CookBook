@@ -83,7 +83,7 @@ public class UserProfilesActivity extends AppCompatActivity {
         mAPIService.getUserProfiles(token, userProfiles).enqueue(new Callback<UserProfileResponse>() {
             @Override
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
-                Toast.makeText(UserProfilesActivity.this, "true", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfilesActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -101,7 +101,7 @@ public class UserProfilesActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserProfilesResults> call, Response<UserProfilesResults> response) {
                 UserProfiles userProfiles;
-                Toast.makeText(UserProfilesActivity.this, "true", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfilesActivity.this, "Thông tin người dùng", Toast.LENGTH_SHORT).show();
                 name.setText(response.body().getUserProfiles().get(0).getFullName());
                 address.setText(response.body().getUserProfiles().get(0).getAddress());
                 phomeNumber.setText(response.body().getUserProfiles().get(0).getPhone());

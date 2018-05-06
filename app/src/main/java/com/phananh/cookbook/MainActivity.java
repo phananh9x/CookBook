@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.updateProfiles:
                         Intent intentProfiles = new Intent(MainActivity.this,UserProfilesActivity.class);
                         startActivity(intentProfiles);
-
+                        break;
                     case R.id.checkUpdate:
                         Toast.makeText(MainActivity.this,"Bạn đã cập nhật phiên bản mới nhất ! Vui vòng quay lại sau.",Toast.LENGTH_SHORT).show();
                         break;
