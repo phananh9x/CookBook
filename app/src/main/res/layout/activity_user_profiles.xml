@@ -157,10 +157,11 @@
             <EditText
                 android:id="@+id/occupation"
                 android:layout_width="177dp"
-                android:layout_height="45dp"
+                android:layout_height="69dp"
                 android:layout_margin="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
+                android:textSize="16sp"
                 android:clickable="true"
                 android:text="Business"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -199,7 +200,7 @@
                 android:layout_marginTop="32dp"
                 android:clickable="true"
                 android:text="marothiatechs@gmail.com"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gender"
                 android:layout_marginRight="8dp" />
@@ -210,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
 
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="35dp"
                 android:clickable="true"
                 android:text="Fullname: "
                 android:textStyle="bold"
@@ -223,7 +224,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 android:clickable="true"
                 android:text="Email: "
                 android:textStyle="bold"
@@ -236,26 +237,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="65dp"
                 android:clickable="true"
                 android:text="Mobile: "
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7"
-                android:layout_marginLeft="8dp" />
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <Button
                 android:id="@+id/btn_update_profiles"
                 android:layout_width="249dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/bg_conner_btn_red"
                 android:text="Update"
                 android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_fullName_info"
-                android:layout_marginLeft="60dp" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_fullName_info" />
 
         </android.support.constraint.ConstraintLayout>
     </RelativeLayout>
