@@ -18,12 +18,12 @@ import java.util.List;
 /**
  * Created by Minamino on 1/15/2016.
  */
-public class CustomBaseAdapter extends BaseAdapter {
+public class CategoryAdapter extends BaseAdapter {
     Context context;
     int layout;
     List<Category> danhsachanh;
 
-    public CustomBaseAdapter(Context context, int layout, List<Category> danhsachanh) {
+    public CategoryAdapter(Context context, int layout, List<Category> danhsachanh) {
         this.context = context;
         this.layout = layout;
         this.danhsachanh = danhsachanh;
@@ -63,7 +63,6 @@ public class CustomBaseAdapter extends BaseAdapter {
         }
 
         ViewHolder holder = (ViewHolder) viewrow.getTag();
-//        holder.hinhanh.setImageResource(R.mipmap.ic_launcher);
         Glide.with(context).load(danhsachanh.get(position).getImage()).into(holder.hinhanh);
         holder.txtText.setText(danhsachanh.get(position).getName());
 
