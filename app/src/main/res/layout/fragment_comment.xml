@@ -9,34 +9,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="80dp">-->
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="30dp"
-                android:background="@color/white"
-                android:src="@drawable/ic_heart2"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="30dp" />
+            <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="30dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="30dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_alignParentStart="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_marginStart="30dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:background="@color/white"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:src="@drawable/ic_heart2"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_marginLeft="30dp" />&ndash;&gt;-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="67dp"
-                android:gravity="center"
-                android:text="Yêu thích : 18"
-                android:textSize="18sp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="67dp" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginStart="67dp"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Yêu thích : 18"-->
+                <!--android:textSize="18sp"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_marginLeft="67dp" />-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

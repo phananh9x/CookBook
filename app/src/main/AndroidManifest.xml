@@ -48,7 +48,7 @@
         <activity android:name=".SignUpActivity"/>
         <activity android:name=".UserProActivity" />
         <activity android:name=".UserProfilesActivity"/>
-        <activity android:name=".CreateFoodActivity" />
+        <activity android:name=".CreateFoodActivity"/>
 
     </application>
 

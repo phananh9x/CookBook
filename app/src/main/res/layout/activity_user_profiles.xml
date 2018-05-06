@@ -53,6 +53,8 @@
             android:id="@+id/profile_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/header_cover_image"
             android:background="#ebca0707"
             android:elevation="4dp"
@@ -145,7 +147,7 @@
                 android:id="@+id/gender"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="20dp"
                 android:text="Male"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -174,7 +176,8 @@
                 android:clickable="true"
                 android:text="9876543210"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/occupation" />
+                app:layout_constraintTop_toBottomOf="@+id/occupation"
+                android:layout_marginRight="8dp" />
 
             <EditText
                 android:id="@+id/tv_fullName_info"
@@ -193,10 +196,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="35dp"
-                android:textSize="20sp"
+                android:layout_marginTop="32dp"
                 android:clickable="true"
                 android:text="marothiatechs@gmail.com"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gender"
                 android:layout_marginRight="8dp" />
@@ -207,7 +210,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
 
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="44dp"
                 android:clickable="true"
                 android:text="Fullname: "
                 android:textStyle="bold"
@@ -240,6 +243,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7"
                 android:layout_marginLeft="8dp" />
+
+            <Button
+                android:id="@+id/btn_update_profiles"
+                android:layout_width="249dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/bg_conner_btn_red"
+                android:text="Update"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fullName_info"
+                android:layout_marginLeft="60dp" />
 
         </android.support.constraint.ConstraintLayout>
     </RelativeLayout>

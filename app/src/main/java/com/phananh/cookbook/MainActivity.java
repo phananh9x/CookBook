@@ -1,11 +1,8 @@
 package com.phananh.cookbook;
 
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -16,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,17 +20,14 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.phananh.adapter.CustomBaseAdapter;
+import com.phananh.adapter.CategoryAdapter;
 import com.phananh.api.APIServices;
 import com.phananh.api.ApiUtils;
 import com.phananh.api.results.GetCategoryResults;
 import com.phananh.model.Category;
-import com.phananh.model.DanhMuc;
 import com.phananh.sqlite.SQLiteDatabaseHandler;
-import com.phananh.util.SharedPreference;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -94,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     }
     // trả về listCategory
     private void getCategorySuccess(List<Category> response) {
-        CustomBaseAdapter adapter = new CustomBaseAdapter(MainActivity.this, R.layout.custom_layout_gridview,response);
+        CategoryAdapter adapter = new CategoryAdapter(MainActivity.this, R.layout.custom_layout_gridview,response);
         adapter.notifyDataSetChanged();
         gridView.setAdapter(adapter);
         progressDialog.dismiss();
@@ -135,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.updateProfiles:
                         Intent intentProfiles = new Intent(MainActivity.this,UserProfilesActivity.class);
                         startActivity(intentProfiles);
-
+                        break;
                     case R.id.checkUpdate:
                         Toast.makeText(MainActivity.this,"Bạn đã cập nhật phiên bản mới nhất ! Vui vòng quay lại sau.",Toast.LENGTH_SHORT).show();
                         break;
@@ -208,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
            /* super.onPostExecute(aVoid);
-            CustomBaseAdapter adapter = new CustomBaseAdapter(MainActivity.this, R.layout.custom_layout_gridview, getData());
+            CategoryAdapter adapter = new CategoryAdapter(MainActivity.this, R.layout.custom_layout_gridview, getData());
             adapter.notifyDataSetChanged();
             gridView.setAdapter(adapter);
             progressDialog.dismiss();*/
