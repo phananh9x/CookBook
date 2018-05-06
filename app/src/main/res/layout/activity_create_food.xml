@@ -1,9 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CreateFoodActivity">
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/light_green_actionbar"
+        android:id="@+id/toolBar3"
+        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content"
+        app:theme="@style/MyAppCompat"
 
-</android.support.constraint.ConstraintLayout>
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">\
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+
+                    android:id="@+id/imgFood"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="80px"
+                    android:layout_alignBottom="@+id/imgFood"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="#66080606"
+                    android:gravity="center"
+                    android:text="Chọn ảnh đại diện"
+                    android:textColor="#ffff"
+                    android:textSize="18sp"
+                    android:id="@+id/txtUpload"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text"
+
+                    android:hint="Tên món ăn" />
+
+                <EditText
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text"
+
+                    android:hint="Thời gian thực hiện" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="#f2f2f2"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content" android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Gợi ý bạn có thẻ nhập (số lượng) (đơn vị) . (tên nguyên liệu) vd:" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" - 100 g . Gà (quay)" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" - 2 trái . Táo" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" - 1/2 muỗng cà phê . nước mắm" />
+                </LinearLayout>
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="300px"
+                    android:background="@drawable/edit_text"
+                    android:gravity="start"
+                    android:hint="Thêm nguyên liệu tại đây"
+                    android:padding="10px" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Các bước thực hiện:"
+                        android:paddingBottom="20px"
+                        android:paddingTop="20px"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:id="@+id/imgHinhMonAn"
+                        android:layout_width="52px"
+                        android:layout_height="40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="24dp"
+                        android:gravity="right"
+                        android:src="@drawable/add_green"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="24dp" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rvCreateFood">
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

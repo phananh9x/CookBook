@@ -53,7 +53,6 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.danh_sach_mon_an_reclerview);
         db = new SQLiteDatabaseHandler(this);
-
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolBar1);
         toolbar.setTitle("Danh Sách Món Ăn");
         setSupportActionBar(toolbar);
@@ -61,23 +60,11 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-
         addControls();
         addEvents();
         Intent intent = getIntent();
         danhMuc = (Category) intent.getSerializableExtra("DanhMuc");
-
         loadFood(danhMuc.getId());
-
-        /*if(checkInternet())
-        {
-            new LoadAsyctask().execute(configuration.SERVER_URL);
-        }
-        else {
-        Toast.makeText(DanhSachMonAnActivity.this,"Vui lòng kiểm tra kết nối Internet của bạn!!",Toast.LENGTH_SHORT).show();}
-*/
-
-
     }
 
     private void loadFood(String idDanhMuc) {

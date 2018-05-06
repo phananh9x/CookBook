@@ -108,12 +108,6 @@ public class MonAnChiTietActivity extends AppCompatActivity {
         dbSQL = new SQLiteDatabaseHandler(this);
 
         token = dbSQL.getToken();
-//        preferences = this.getSharedPreferences("", MODE_PRIVATE);
-//        token = preferences.getString("token", "");
-//        username = preferences.getString("username", "");
-//        helper = new FirebaseHelper(db);
-
-//        sharedPreference=new SharedPreference();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar4);
         context= getApplicationContext();
         setSupportActionBar(toolbar);
@@ -135,7 +129,6 @@ public class MonAnChiTietActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         // Logs 'install' and 'app activate' App Events.
         AppEventsLogger.activateApp(this);
     }

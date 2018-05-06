@@ -6,6 +6,7 @@ import com.phananh.api.results.GetCategoryResults;
 import com.phananh.api.results.GetCommentOfFood;
 import com.phananh.api.results.GetFoodDetailResults;
 import com.phananh.api.results.GetFoodsResults;
+import com.phananh.api.results.GetUploadResults;
 import com.phananh.api.results.LoginResults;
 import com.phananh.api.results.SignUpResults;
 import com.phananh.api.results.UserProfilesResults;
@@ -15,11 +16,14 @@ import com.phananh.model.LogIn;
 import com.phananh.model.SignUp;
 import com.phananh.model.UserProfiles;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 /**
@@ -87,6 +91,11 @@ public interface APIServices {
             @Header("token") String token,
             @Body UserProfiles userProfiles
             );
-
+    @Multipart
+    @POST("image/")
+    Call<GetUploadResults> uploadImage(
+            @Header("token") String token,
+            @Part MultipartBody.Part file
+    );
 
 }

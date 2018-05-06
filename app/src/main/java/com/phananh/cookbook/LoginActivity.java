@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         anhxa();
-        addEvents();
     }
 
     private void anhxa() {
@@ -71,13 +70,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                     SQLiteDatabaseHandler db = new SQLiteDatabaseHandler(LoginActivity.this);
                     db.save(SQLiteDatabaseHandler.KEY_TOKEN, response.body().getLoginResponse().getToken());
-//                    db.save(SQLiteDatabaseHandler.USERID, response.body().getLoginResponse().getId());
-//                    db.save(SQLiteDatabaseHandler.USERNAME, response.body().getLoginResponse().getEmail());
-
-//                    SharedPreferences.Editor editor = getSharedPreferences("", MODE_PRIVATE).edit();
-//                    editor.putString("token", response.body().getLoginResponse().getToken());
-//                    editor.putString("username", response.body().getLoginResponse().getEmail());
-//                    editor.apply();
 
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
@@ -95,67 +87,4 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void addEvents() {
-
-    }
-
-//    private class LoginAsyctask extends AsyncTask<String, LogIn, String> {
-//        StringBuffer dulieu;
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            progressDialog = new ProgressDialog(LoginActivity.this);
-//            //  progressDialog.setTitle("Vui Lòng Chờ !");
-//            progressDialog.setMessage("Loading...");
-//            progressDialog.setIndeterminate(false);
-//            progressDialog.show();
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//            super.onPostExecute(s);
-//
-//            progressDialog.dismiss();
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(LogIn... values) {
-//            super.onProgressUpdate(values);
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//
-//            try {
-//                URL url = new URL(params[0]);
-//                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-//                httpURLConnection.connect();
-//                InputStream inputStream = httpURLConnection.getInputStream();
-//                InputStreamReader reader = new InputStreamReader(inputStream);
-//                BufferedReader bufferedReader = new BufferedReader(reader);
-//
-//                String dong = "";
-//
-//                dulieu = new StringBuffer();
-//
-//                while ((dong = bufferedReader.readLine()) != null) {
-//                    dulieu.append(dong);
-//                }
-//
-//                bufferedReader.close();
-//                reader.close();
-//                inputStream.close();
-//                httpURLConnection.disconnect();
-//
-//                Log.d("Dữ liệu", "doInBackground: " + dulieu.toString());
-//            } catch (MalformedURLException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            return dulieu.toString();
-//        }
-
-//    }
 }

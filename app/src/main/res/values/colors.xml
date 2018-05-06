@@ -21,4 +21,5 @@
     <color name="grey">#f2f2f2</color>
     <color name="light_green3">#f2f2f2</color>
     <color name="light_green4">#FFFFFF</color>
+    <color name="borderColor">#000</color>
 </resources>

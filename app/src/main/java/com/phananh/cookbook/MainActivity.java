@@ -55,17 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
     private APIServices mAPIService;
 
-    AsyncTask<Void, Void, Void> gcmRegisterTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         addControls();
         addEvents();
-
-//        new LoadAsyctask().execute();
         loadCategory();
 
     }
@@ -77,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
         db = new SQLiteDatabaseHandler(this);
         token = db.getToken();
-//        SharedPreferences preferences = this.getSharedPreferences("", MODE_PRIVATE);
-//        String token = preferences.getString("token", "");
         mAPIService = ApiUtils.getAPIService();
         mAPIService.getCategories(token).enqueue(new Callback<GetCategoryResults>() {
             @Override
@@ -185,23 +179,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-//    private ArrayList<DanhMuc> getData() {
-//        int[] danhSachHinhAnh = {R.drawable.thitheo, R.drawable.thitvit,
-//                R.drawable.raucu, R.drawable.thitbo, R.drawable.dauphu,
-//                R.drawable.thitga, R.drawable.haisankhac, R.drawable.trung};
-//        String[] kytu = {"Thịt Heo", "Thịt Vịt", "Rau Củ", "Thịt Bò", "Đậu phụ", "Thịt Gà", "Hải sản", "Trứng"};
-//        String[] id = {"Heo", "Vit", "Rau", "Bo", "Dau", "Ga", "HS", "Trung"};
-//        dsDanhMuc = new ArrayList<>();
-//        for (int i = 0; i < danhSachHinhAnh.length; i++) {
-//            DanhMuc danhMuc = new DanhMuc(id[i], danhSachHinhAnh[i], kytu[i]);
-//            dsDanhMuc.add(danhMuc);
-//        }
-//        return dsDanhMuc;
-//    }
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -245,8 +222,6 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.setIndeterminate(false);
             progressDialog.show();
         }
-
-
     }
 
 }
