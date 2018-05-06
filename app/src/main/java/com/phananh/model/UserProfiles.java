@@ -93,4 +93,13 @@ public class UserProfiles {
         this.phone = phone;
         this.address = address;
     }
+
+    public UserProfiles(String email, String fullName, boolean gender, String phone, String image, String address) {
+        this.email = email;
+        this.fullName = fullName;
+        this.gender = gender;
+        this.phone = phone;
+        this.image = image;
+        this.address = address;
+    }
 }
