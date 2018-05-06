@@ -2,39 +2,33 @@ package com.phananh.cookbook;
 
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.phananh.adapter.CreateFoodAdapter;
 import com.phananh.api.APIServices;
 import com.phananh.api.ApiUtils;
 import com.phananh.api.results.GetUploadResults;
-import com.phananh.model.Category;
-import com.phananh.model.Food;
+import com.phananh.dialog.ImageAdapter;
 import com.phananh.model.UploadImage;
 import com.phananh.sqlite.SQLiteDatabaseHandler;
-import com.phananh.util.ReadPathUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -43,60 +37,50 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CreateFoodActivity extends AppCompatActivity {
-    RecyclerView mRecyclerView;
-    CreateFoodAdapter mRcvAdapter;
-    List<String> data;
-    ImageView imgFood;
-    String IMAGE_PATH;
-    Category danhMuc;
-    Food food;
+/**
+ * Created by thanh on 06/05/2018.
+ */
 
-    String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBoYW5hbmgxMjNxcXFAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJOaGF0IEFuaCIsIl9pZCI6IjVhYWE0MTU1YjM4Yjg3MjBjODAxNWM1MCIsInBob25lIjoiMDk4OTg4ODg4OCIsImFkZHJlc3MiOiI5NyBNYW4gdGhpZW4gcXVhbiA5IHRwIEhvIENoaSBNaW5oIiwiZ2VuZGVyIjp0cnVlLCJiaXJ0aGRheSI6IjE5OTYtMTItMTJUMDA6MDA6MDAuMDAwWiIsImlhdCI6MTUyNTI3NDUxOH0.SWxNngIwIhIOlb-XncrwQwfUrLOT0ijc8zFqoa3W2y4";
+public class AddStepCreateFoodActivity extends AppCompatActivity {
+
+    TextInputLayout edtStep;
+    ImageView ivAddImage;
+    RecyclerView rcvImage;
+
+    private List<String> images;
+    private String IMAGE_PATH;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_food);
-        Toolbar toolbar= (Toolbar) findViewById(R.id.toolBar3);
-        toolbar.setTitle("Tạo công thức món ăn");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        Intent intent = getIntent();
-        danhMuc = (Category) intent.getSerializableExtra("DANHMUC");
-        Toast.makeText(this, danhMuc.getName(), Toast.LENGTH_SHORT).show();
-        imgFood = (ImageView) findViewById(R.id.imgFood);
+        setContentView(R.layout.activity_add_step_create_food);
 
-        findViewById(R.id.txtUpload).setOnClickListener(new View.OnClickListener() {
+        initData();
+        initListener();
+    }
+
+    private void initData() {
+        images = new ArrayList<>();
+
+        edtStep = (TextInputLayout) findViewById(R.id.edt_step_create_food);
+        ivAddImage = (ImageView) findViewById(R.id.iv_add_image_step);
+        rcvImage = (RecyclerView) findViewById(R.id.rcv_image_step_create_food);
+
+        rcvImage.setLayoutManager(new LinearLayoutManager(this));
+        rcvImage.setAdapter(new ImageAdapter(this, images));
+    }
+
+    private void initListener() {
+        ivAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chooseImage();
-            }
-        });
-
-        findViewById(R.id.iv_add_step).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CreateFoodActivity.this, AddStepCreateFoodActivity.class));
+                openImageStorage();
             }
         });
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void chooseImage(){
+    private void openImageStorage() {
         Intent fintent = new Intent(Intent.ACTION_GET_CONTENT);
         fintent.setType("image/*");
         try {
@@ -108,7 +92,7 @@ public class CreateFoodActivity extends AppCompatActivity {
 
     public void UploadImage(){
         final ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(CreateFoodActivity.this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Uploading!!");
         progressDialog.show();
 
@@ -122,14 +106,17 @@ public class CreateFoodActivity extends AppCompatActivity {
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("uploaded_file", file.getName(), requestFile);
 
+        String token = new SQLiteDatabaseHandler(this).getToken();
+
         Call<GetUploadResults> call = service.uploadImage(token,body);
         call.enqueue(new Callback<GetUploadResults>() {
 
             @Override
             public void onResponse(Call<GetUploadResults> call, Response<GetUploadResults> response) {
                 UploadImage image = response.body().getUploadImage();
-                Picasso.with(CreateFoodActivity.this).load(ApiUtils.BASE_URL+image.getPath()).placeholder(R.drawable.none).error(R.drawable.none).into(imgFood);
                 progressDialog.dismiss();
+                images.add(ApiUtils.BASE_URL+image.getPath());
+                rcvImage.getAdapter().notifyDataSetChanged();
             }
 
             @Override
@@ -139,6 +126,7 @@ public class CreateFoodActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null)
@@ -173,6 +161,4 @@ public class CreateFoodActivity extends AppCompatActivity {
                 }
         }
     }
-
 }
-

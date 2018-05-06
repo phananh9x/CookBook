@@ -49,6 +49,7 @@
         <activity android:name=".UserProActivity" />
         <activity android:name=".UserProfilesActivity"/>
         <activity android:name=".CreateFoodActivity"/>
+        <activity android:name=".AddStepCreateFoodActivity"/>
 
     </application>
 

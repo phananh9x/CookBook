@@ -43,4 +43,10 @@
         <item name="fab_colorRipple">#1B5E20</item>
     </style>
 
+    <style name="FullScreenDialog">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
 </resources>
