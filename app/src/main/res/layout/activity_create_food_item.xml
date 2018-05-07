@@ -105,17 +105,17 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=" - 100 g . Gà (quay)" />
+                    android:text="100 g - Gà (quay)" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=" - 2 trái . Táo" />
+                    android:text="2 trái - Táo" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=" - 1/2 muỗng cà phê . nước mắm" />
+                    android:text=" 1/2 muỗng cà phê - nước mắm" />
             </LinearLayout>
 
 

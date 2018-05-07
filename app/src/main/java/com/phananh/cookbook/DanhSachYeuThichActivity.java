@@ -99,7 +99,12 @@ public class DanhSachYeuThichActivity extends AppCompatActivity {
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                dsMonAnYeuThich = helper.fetchData(dataSnapshot);
+                dsMonAnYeuThich.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    Food food=ds.getValue(Food.class);
+                    dsMonAnYeuThich.add(food);
+                }
                 if(dsMonAnYeuThich!=null) {
                     foodAdapter = new FoodAdapter(DanhSachYeuThichActivity.this, dsMonAnYeuThich);
                     myRecyclerView.setAdapter(foodAdapter);

@@ -46,6 +46,23 @@ public class Food implements Serializable{
     @Expose
     public String material;
 
+    public Food(List<Material> materials, List<Content> content, List<String> favourite, String created, String id, String name, String categoryId, String image, String decriptions, String youtube, String material) {
+        this.materials = materials;
+        this.content = content;
+        this.favourite = favourite;
+        this.created = created;
+        this.id = id;
+        this.name = name;
+        this.categoryId = categoryId;
+        this.image = image;
+        this.decriptions = decriptions;
+        this.youtube = youtube;
+        this.material = material;
+    }
+
+    public Food() {
+    }
+
     public List<Material> getMaterials() {
         if (materials == null) {
             materials = new ArrayList<>();

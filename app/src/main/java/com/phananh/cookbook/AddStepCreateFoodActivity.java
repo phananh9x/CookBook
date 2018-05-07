@@ -98,7 +98,7 @@ public class AddStepCreateFoodActivity extends AppCompatActivity {
                     openImageStorage();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(AddStepCreateFoodActivity.this);
-                    builder.setMessage("Hinh nhieu qua");
+                    builder.setMessage("Max size image = 4!");
                     builder.setCancelable(false);
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override

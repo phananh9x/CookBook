@@ -17,4 +17,7 @@ public class Image implements Serializable{
     public Image(String image) {
         this.image = image;
     }
+
+    public Image() {
+    }
 }
