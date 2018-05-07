@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CreateFoodActivity">
+    tools:context=".CreateFoodItemActivity">
 
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,7 +15,24 @@
         android:background="@color/light_green_actionbar"
         android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize"
-        app:theme="@style/MyAppCompat" />
+        app:theme="@style/MyAppCompat" >
+
+       <FrameLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <TextView
+               android:id="@+id/tvCreateFood"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/white"
+               android:layout_gravity="end"
+               android:layout_marginRight="8dp"
+               android:textSize="18sp"
+               android:text="Create"/>
+       </FrameLayout>
+    </android.support.v7.widget.Toolbar>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,13 +53,13 @@
             <TextView
                 android:id="@+id/txtUpload"
                 android:layout_width="match_parent"
-                android:layout_height="80px"
+                android:layout_height="40dp"
                 android:layout_alignBottom="@+id/imgFood"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:background="#66080606"
-                android:gravity="center"
                 android:text="Chọn ảnh đại diện"
+                android:gravity="center"
                 android:textColor="#ffff"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -54,6 +71,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/edtTenMonAn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -63,12 +81,12 @@
                 android:padding="10dp" />
 
             <EditText
+                android:id="@+id/edtMoTa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text"
-                android:hint="Thời gian thực hiện"
-
+                android:hint="Mo ta"
                 android:padding="10dp" />
 
             <LinearLayout
@@ -76,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:background="#f2f2f2"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -101,43 +120,43 @@
 
 
             <EditText
+                android:id="@+id/edtNguyenLieu"
                 android:layout_width="match_parent"
-                android:layout_height="300px"
+                android:layout_height="100dp"
                 android:background="@drawable/edit_text"
                 android:gravity="start"
                 android:hint="Thêm nguyên liệu tại đây"
-                android:padding="10px" />
+                android:padding="10dp" />
 
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#66080606">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Các bước thực hiện:"
-                    android:paddingBottom="20px"
-                    android:paddingTop="20px"
-                    android:textSize="18dp" />
+                    android:paddingBottom="20dp"
+                    android:layout_weight="1"
+                    android:text="Cac buoc thuc hien"
+                    android:paddingTop="20dp"
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/iv_add_step"
-                    android:layout_width="52px"
+                    android:layout_width="52dp"
                     android:layout_height="40dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/add_green" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <ListView
-                android:id="@+id/rcvCreateFoods"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

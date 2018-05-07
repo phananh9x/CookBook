@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.phananh.cookbook.R;
+import com.phananh.model.Image;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ import java.util.List;
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<String> mItems;
+    private List<Image> mItems;
 
-    public ImageAdapter(Context context, List<String> items) {
+    public ImageAdapter(Context context, List<Image> items) {
         this.mContext = context;
         this.mItems = items;
     }
@@ -33,7 +34,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ImageAdapter.ViewHolder holder, int position) {
-        Glide.with(mContext).load(mItems.get(position)).into(holder.ivStep);
+        Glide.with(mContext).load(mItems.get(position).image).into(holder.ivStep);
     }
 
     @Override

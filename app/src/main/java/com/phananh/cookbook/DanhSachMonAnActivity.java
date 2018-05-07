@@ -37,6 +37,8 @@ import retrofit2.Response;
 
 public class DanhSachMonAnActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE_CREATE_FOOD = 12;
+
     List<Food> dsMonAn;
 
     FoodAdapter foodAdapter;
@@ -46,7 +48,6 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
     SQLiteDatabaseHandler db;
     String token;
     ImageView btnCreateFood;
-
 
 
 
@@ -66,10 +67,10 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
         addEvents();
         Intent intent = getIntent();
         danhMuc = (Category) intent.getSerializableExtra("DanhMuc");
-        loadFood(danhMuc.getId());
+        loadFood();
     }
 
-    private void loadFood(String idDanhMuc) {
+    private void loadFood() {
         progressDialog= new ProgressDialog(DanhSachMonAnActivity.this);
         progressDialog.setMessage("Loading...");
         progressDialog.setIndeterminate(false);
@@ -77,7 +78,7 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
 
         token = db.getToken();
 
-        ApiUtils.getAPIService().getFood(token, idDanhMuc).enqueue(new Callback<GetFoodsResults>() {
+        ApiUtils.getAPIService().getFood(token, danhMuc.getId()).enqueue(new Callback<GetFoodsResults>() {
             @Override
             public void onResponse(Call<GetFoodsResults> call, Response<GetFoodsResults> response) {
                 dsMonAn = response.body().getFood();
@@ -132,9 +133,10 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
         btnCreateFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(DanhSachMonAnActivity.this,CreateFoodActivity.class);
-                intent.putExtra("DANHMUC", danhMuc);
-                startActivity(intent);
+//                Intent intent=new Intent(DanhSachMonAnActivity.this,CreateFoodActivity.class);
+                Intent intent=new Intent(DanhSachMonAnActivity.this,CreateFoodItemActivity.class);
+                intent.putExtra("DANHMUC", danhMuc.getId());
+                startActivityForResult(intent,REQUEST_CODE_CREATE_FOOD);
             }
         });
     }
@@ -161,8 +163,31 @@ public class DanhSachMonAnActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CREATE_FOOD && resultCode ==RESULT_OK){
+            ApiUtils.getAPIService().getFood(token, danhMuc.getId()).enqueue(new Callback<GetFoodsResults>() {
+                @Override
+                public void onResponse(Call<GetFoodsResults> call, Response<GetFoodsResults> response) {
+                    dsMonAn = response.body().getFood();
+                    loadFoodSuccess();
+                    Toast.makeText(DanhSachMonAnActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
 
-/*
+                }
+
+                @Override
+                public void onFailure(Call<GetFoodsResults> call, Throwable t) {
+                    Toast.makeText(DanhSachMonAnActivity.this, "Get food failed!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+
+                }
+            });
+        }
+    }
+
+    /*
     private class LoadAsyctask extends AsyncTask<String,Void,String>
     {
         StringBuffer dulieu;

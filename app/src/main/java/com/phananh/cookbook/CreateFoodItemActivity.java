@@ -2,46 +2,39 @@ package com.phananh.cookbook;
 
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.phananh.adapter.ContentAdapter;
-import com.phananh.adapter.CreateFoodAdapter;
 import com.phananh.api.APIServices;
 import com.phananh.api.ApiUtils;
+import com.phananh.api.results.GetFoodDetailResults;
 import com.phananh.api.results.GetUploadResults;
-import com.phananh.model.Category;
 import com.phananh.model.Content;
 import com.phananh.model.Food;
-import com.phananh.model.Image;
+import com.phananh.model.Material;
 import com.phananh.model.UploadImage;
 import com.phananh.sqlite.SQLiteDatabaseHandler;
-import com.phananh.util.ReadPathUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -50,28 +43,33 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CreateFoodActivity extends AppCompatActivity {
+public class CreateFoodItemActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_ADD_STEP = 22;
 
-    ListView rcvStep;
-    List<Content> listStep;
-    List<String> data;
+    TextView tvCreateFood;
     ImageView imgFood;
-    String IMAGE_PATH;
-    Category danhMuc;
-    Food food;
-    private LinearLayoutManager mLayoutManager;
-    private CreateFoodAdapter adapter;
+    ImageView ivAdd;
+    TextView txtUpload;
+    RecyclerView rcv;
+    EditText edtTenMonAn, edtMoTa, edtNguyeLieu;
 
-    String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBoYW5hbmgxMjNxcXFAZ21haWwuY29tIiwiZnVsbE5hbWUiOiJOaGF0IEFuaCIsIl9pZCI6IjVhYWE0MTU1YjM4Yjg3MjBjODAxNWM1MCIsInBob25lIjoiMDk4OTg4ODg4OCIsImFkZHJlc3MiOiI5NyBNYW4gdGhpZW4gcXVhbiA5IHRwIEhvIENoaSBNaW5oIiwiZ2VuZGVyIjp0cnVlLCJiaXJ0aGRheSI6IjE5OTYtMTItMTJUMDA6MDA6MDAuMDAwWiIsImlhdCI6MTUyNTI3NDUxOH0.SWxNngIwIhIOlb-XncrwQwfUrLOT0ijc8zFqoa3W2y4";
+    List<Content> listStep;
+    String IMAGE_PATH;
+    String IMAGE_FOOD;
+    private String token;
+    private String idDanhMuc;
+    private  APIServices mAPIService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_food);
+        setContentView(R.layout.activity_create_food_item);
+
+        token = new SQLiteDatabaseHandler(this).getToken();
+        idDanhMuc = getIntent().getStringExtra("DANHMUC");
+
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolBar3);
         toolbar.setTitle("Tạo công thức món ăn");
         setSupportActionBar(toolbar);
@@ -79,37 +77,81 @@ public class CreateFoodActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        Intent intent = getIntent();
+
+        ivAdd = (ImageView) findViewById(R.id.iv_add_step);
+        tvCreateFood = (TextView) findViewById(R.id.tvCreateFood);
+        imgFood = (ImageView) findViewById(R.id.imgFood);
+        txtUpload = (TextView) findViewById(R.id.txtUpload);
+        edtTenMonAn = (EditText) findViewById(R.id.edtTenMonAn);
+        edtMoTa = (EditText) findViewById(R.id.edtMoTa);
+        edtNguyeLieu = (EditText) findViewById(R.id.edtNguyenLieu);
 
         listStep = new ArrayList<>();
-        List<Image> img = new ArrayList<>();
-        img.add(new Image("Ddfdfdf"));
-        listStep.add(new Content("Mina", img ));
 
-        danhMuc = (Category) intent.getSerializableExtra("DANHMUC");
-        Toast.makeText(this, danhMuc.getName(), Toast.LENGTH_SHORT).show();
-        imgFood = (ImageView) findViewById(R.id.imgFood);
+        rcv = (RecyclerView) findViewById(R.id.rcv);
+        rcv.setLayoutManager(new LinearLayoutManager(this));
+        rcv.setAdapter(new ContentAdapter(this, listStep));
 
-
-        rcvStep = (ListView) findViewById(R.id.rcvCreateFoods);
-        rcvStep.setAdapter(new CreateFoodAdapter(this, listStep));
-
-        findViewById(R.id.txtUpload).setOnClickListener(new View.OnClickListener() {
+        ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentCreateStep = new Intent(CreateFoodItemActivity.this, AddStepCreateFoodActivity.class);
+                startActivityForResult(intentCreateStep, REQUEST_CODE_ADD_STEP);
+            }
+        });
+        
+        txtUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chooseImage();
             }
         });
 
-        findViewById(R.id.iv_add_step).setOnClickListener(new View.OnClickListener() {
+        tvCreateFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentCreateStep = new Intent(CreateFoodActivity.this, AddStepCreateFoodActivity.class);
-                startActivityForResult(intentCreateStep, REQUEST_CODE_ADD_STEP);
+                createFood();
             }
         });
     }
 
+    private void createFood() {
+        List<Material> list = new ArrayList<>();
+        List<String> arr = Arrays.asList(edtNguyeLieu.getText().toString().split("\n"));
+        for (String s : arr) {
+            if (!TextUtils.isEmpty(s)) {
+                List<String> s2 = Arrays.asList(s.split("-"));
+                Material material = new Material();
+                material.setAmount(s2.get(0));
+                material.setMaterial(s2.get(1));
+                list.add(material);
+            }
+        }
+        Food food = new Food();
+        food.setCategoryId(idDanhMuc);
+        food.setContent(listStep);
+        food.setName(edtTenMonAn.getText().toString());
+        food.setDecriptions(edtMoTa.getText().toString());
+        food.setImage(IMAGE_FOOD);
+        food.setMaterials(list);
+        mAPIService = ApiUtils.getAPIService();
+        mAPIService.createFood(token, idDanhMuc, food).enqueue(new Callback<GetFoodDetailResults>() {
+            @Override
+            public void onResponse(Call<GetFoodDetailResults> call, Response<GetFoodDetailResults> response) {
+                Toast.makeText(CreateFoodItemActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK);
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<GetFoodDetailResults> call, Throwable t) {
+                Toast.makeText(CreateFoodItemActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
@@ -131,7 +173,7 @@ public class CreateFoodActivity extends AppCompatActivity {
 
     public void UploadImage(){
         final ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(CreateFoodActivity.this);
+        progressDialog = new ProgressDialog(CreateFoodItemActivity.this);
         progressDialog.setMessage("Uploading!!");
         progressDialog.show();
 
@@ -151,7 +193,8 @@ public class CreateFoodActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<GetUploadResults> call, Response<GetUploadResults> response) {
                 UploadImage image = response.body().getUploadImage();
-                Picasso.with(CreateFoodActivity.this).load(ApiUtils.BASE_URL+image.getPath()).placeholder(R.drawable.none).error(R.drawable.none).into(imgFood);
+                IMAGE_FOOD = ApiUtils.BASE_URL+image.getPath();
+                Picasso.with(CreateFoodItemActivity.this).load(ApiUtils.BASE_URL+image.getPath()).placeholder(R.drawable.none).error(R.drawable.none).into(imgFood);
                 progressDialog.dismiss();
             }
 
@@ -165,6 +208,7 @@ public class CreateFoodActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (data == null)
             return;
         switch (requestCode) {
@@ -197,11 +241,11 @@ public class CreateFoodActivity extends AppCompatActivity {
                 }
         }
 
+
         if (requestCode == REQUEST_CODE_ADD_STEP && resultCode == RESULT_OK){
             Content content = (Content) data.getSerializableExtra(AddStepCreateFoodActivity.CONTENT_ADD_STEP);
             listStep.add(content);
+            rcv.getAdapter().notifyDataSetChanged();
         }
     }
-
 }
-

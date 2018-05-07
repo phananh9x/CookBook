@@ -2,6 +2,7 @@ package com.phananh.cookbook;
 
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
@@ -13,16 +14,22 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.phananh.api.APIServices;
 import com.phananh.api.ApiUtils;
 import com.phananh.api.results.GetUploadResults;
 import com.phananh.dialog.ImageAdapter;
+import com.phananh.model.Content;
+import com.phananh.model.Image;
 import com.phananh.model.UploadImage;
 import com.phananh.sqlite.SQLiteDatabaseHandler;
 import com.squareup.picasso.Picasso;
@@ -44,11 +51,15 @@ import retrofit2.Response;
 
 public class AddStepCreateFoodActivity extends AppCompatActivity {
 
+    public static final String CONTENT_ADD_STEP = "CONTENT_ADD_STEP";
+
+    Toolbar toolbar;
+    TextView tvCreate;
     TextInputLayout edtStep;
     ImageView ivAddImage;
     RecyclerView rcvImage;
 
-    private List<String> images;
+    private List<Image> images;
     private String IMAGE_PATH;
 
     @Override
@@ -63,10 +74,18 @@ public class AddStepCreateFoodActivity extends AppCompatActivity {
     private void initData() {
         images = new ArrayList<>();
 
+        toolbar = (Toolbar) findViewById(R.id.toolBarAddStep);
+        tvCreate = (TextView) findViewById(R.id.tv_create_step);
         edtStep = (TextInputLayout) findViewById(R.id.edt_step_create_food);
         ivAddImage = (ImageView) findViewById(R.id.iv_add_image_step);
         rcvImage = (RecyclerView) findViewById(R.id.rcv_image_step_create_food);
 
+        toolbar.setTitle("Create Step Food");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         rcvImage.setLayoutManager(new LinearLayoutManager(this));
         rcvImage.setAdapter(new ImageAdapter(this, images));
     }
@@ -75,10 +94,45 @@ public class AddStepCreateFoodActivity extends AppCompatActivity {
         ivAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openImageStorage();
+                if (images.size() < 4){
+                    openImageStorage();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddStepCreateFoodActivity.this);
+                    builder.setMessage("Hinh nhieu qua");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                }
+            }
+        });
+        tvCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Content content = new Content(edtStep.getEditText().getText().toString(), images);
+                Intent intent = new Intent(AddStepCreateFoodActivity.this, CreateFoodActivity.class);
+                intent.putExtra(CONTENT_ADD_STEP, content);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     private void openImageStorage() {
         Intent fintent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -115,7 +169,7 @@ public class AddStepCreateFoodActivity extends AppCompatActivity {
             public void onResponse(Call<GetUploadResults> call, Response<GetUploadResults> response) {
                 UploadImage image = response.body().getUploadImage();
                 progressDialog.dismiss();
-                images.add(ApiUtils.BASE_URL+image.getPath());
+                images.add(new Image(ApiUtils.BASE_URL+image.getPath()));
                 rcvImage.getAdapter().notifyDataSetChanged();
             }
 

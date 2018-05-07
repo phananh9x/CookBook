@@ -13,8 +13,6 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "CookBook";
 
     public static final String KEY_TOKEN = "token";
-    public static final String USERID = "userid";
-    public static final String USERNAME = "username";
 
 
     public SQLiteDatabaseHandler(Context context){
@@ -47,15 +45,6 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String getUserId(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[]{USERID}, null, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-
-        return cursor.getString(cursor.getColumnIndex(USERID));
-    }
 
     public String getToken(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -65,14 +54,5 @@ public class SQLiteDatabaseHandler extends SQLiteOpenHelper {
         }
 
         return cursor.getString(cursor.getColumnIndex(KEY_TOKEN));
-    }
-    public String getUsername(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[]{USERNAME}, null, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-
-        return cursor.getString(cursor.getColumnIndex(USERNAME));
     }
 }

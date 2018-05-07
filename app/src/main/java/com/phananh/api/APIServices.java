@@ -68,6 +68,14 @@ public interface APIServices {
             @Body Food food
     );
 
+
+    @POST("food/{categoryId}/create")
+    Call<GetFoodDetailResults> createFood(
+            @Header("token") String token,
+            @Path("categoryId") String categoryId,
+            @Body Food food
+    );
+
     @GET("comment/{foodId}/")
     Call<GetCommentOfFood> getCommentOfFood(
             @Header("token") String token,

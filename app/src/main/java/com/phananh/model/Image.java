@@ -13,4 +13,8 @@ public class Image implements Serializable{
     @SerializedName("image")
     @Expose
     public String image;
+
+    public Image(String image) {
+        this.image = image;
+    }
 }

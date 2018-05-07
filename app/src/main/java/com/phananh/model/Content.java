@@ -20,6 +20,13 @@ public class Content implements Serializable {
     @Expose
     private List<Image> arrImage;
 
+    public Content() {
+    }
+
+    public Content(String step, List<Image> arrImage) {
+        this.step = step;
+        this.arrImage = arrImage;
+    }
 
     public String getStep() {
         return step;

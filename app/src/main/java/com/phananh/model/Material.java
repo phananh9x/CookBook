@@ -17,4 +17,20 @@ public class Material implements Serializable{
     @SerializedName("amount")
     @Expose
     public String amount;
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 }

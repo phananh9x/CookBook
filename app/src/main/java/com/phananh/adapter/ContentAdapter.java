@@ -1,6 +1,7 @@
 package com.phananh.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,24 +16,29 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ContentAdapter  extends RecyclerView.Adapter<ContentViewHolder> {
-    public LinearLayout linearLayout;
     private LayoutInflater mLayoutInflater;
-    private Activity activity;
+    private Context activity;
     private List<Content> dsContent;
 
 
-    public ContentAdapter(Activity activity, List<Content> dsMaterial) {
+    public ContentAdapter(Context activity, List<Content> dsMaterial) {
         this.activity = activity;
         this.dsContent = dsMaterial;
         mLayoutInflater =  LayoutInflater.from(activity);
     }
 
+    public void setList(List<Content> list){
+        dsContent = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public ContentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= mLayoutInflater.inflate(R.layout.custom_layout_rv_content, null);
+        return new ContentViewHolder(LayoutInflater.from(activity).inflate(R.layout.custom_layout_rv_content, parent, false));
+      /*  View view= mLayoutInflater.inflate(R.layout.custom_layout_rv_content, null);
         // View view=View.inflate(activity,R.layout.danh_sach_mon_an,null);
 
-        return new ContentViewHolder(view);
+        return new ContentViewHolder(view);*/
     }
 
     @Override
